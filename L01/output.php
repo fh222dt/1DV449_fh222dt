@@ -11,7 +11,7 @@ class output {
 							<th>Id</th>
 							<th>Hemsida</th>
 							<th>Ort</th>
-							<th>Information hämtad</th>
+							<th>Avläst</th>
 							</tr>
 						</thead>
 						<tbody>";

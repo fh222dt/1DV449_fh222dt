@@ -1,12 +1,13 @@
 <?php
 require_once("scraper.php");
 require_once("output.php");
+require_once("producers.php");
 
 $scrape = new Scraper();
 
 //echo $scrape->doSracpe();
 
-$producer = new Producer();
+/*$producer = new Producers();
 
 $producer->logo = "BILD";
 $producer->name = "Fridas Blommor";
@@ -17,12 +18,16 @@ $producer->time = "Hämtad 8 ggr, senast 14:58";
 
 $producers = array();
 
-array_push($producers, $producer);
+array_push($producers, $producer);*/
+
+
+
 
 $output = new Output();
 
-echo $output->DisplayTable($producers);
+$producers = new Producers();
+$results = $producers->createProducers();
 
-class Producer {
+//var_dump($producers);
 
-}
+echo $output->DisplayTable($results);

@@ -1,10 +1,10 @@
 ﻿<?php
 class Scraper {
 
-	private $scraped;	
+	private $login = "http://vhost3.lnu.se:20080/~1dv449/scrape/check.php";
 
 	public function doSracpe() {
-		$this->scraped = $this->curlGet("http://vhost3.lnu.se:20080/~1dv449/scrape/check.php");
+		//$firstpage = $this->curlGet($this->scraped);
 		
 		$urls = $this->getHomepages();
 		
@@ -12,10 +12,12 @@ class Scraper {
 
 		$producerCity = $this->getCity($urls);
 
-		var_dump($producerUrl);
-		var_dump($producerCity);
+		$names = $this->getProducer();
 
-		//var_dump($this->scraped);
+		//var_dump($producerUrl);
+		//var_dump($producerCity);
+
+		var_dump($names);
 
 	}
 
@@ -67,8 +69,9 @@ class Scraper {
 
 	}
 
-	private function getProducer () {
-		$xpath =$this->returnXPath($this->scraped);
+	public function getProducer () {
+		$scraped = $this->curlGet($this->login);
+		$xpath =$this->returnXPath($scraped);
 		$items = $xpath->query('//td/a');
 
 		//plocka ut namn
@@ -84,22 +87,29 @@ class Scraper {
 		return $producer;
 	}
 
-	private function getProducerId () {
-		$xpath =$this->returnXPath($this->scraped);
+	public function getProducerId () {
+		$scraped = $this->curlGet($this->login);
+		$xpath =$this->returnXPath($scraped);
 		$items = $xpath->query('//td/a');
 
 		//plocka ut id
 		$producerId = array();
 		
 		foreach($items as $item) {
-			preg_match_all("/\d+/", $item->getAttribute("href"), $producerId[]);
+			preg_match("/\d+/", $item->getAttribute("href"), $producerId[]);
 		}
+
+		/*foreach ($items as $item) {
+			$id = $item->getAttribute("href");
+			$producerId[] = $cleanedid = substr($id, 10);
+		}*/
 
 		return $producerId;
 	}
 
 	private function getHomepages () {
-		$xpath =$this->returnXPath($this->scraped);
+		$scraped = $this->curlGet($this->login);
+		$xpath =$this->returnXPath($scraped);
 		$items = $xpath->query('//td/a');
 
 		//plocka ut alla undersidor
@@ -109,10 +119,12 @@ class Scraper {
 			$item->getAttribute("href");
 		}
 
+		
 		return $urls;
 	}
 
-	private function getUrl ($urls) {	//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!	
+	public function getUrl ($urls) {	//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!	
+		$urladresses = array();
 		
 		foreach ($urls as $pageToVisit) {
 			$urlSrc = $this->curlGet($pageToVisit);
@@ -120,36 +132,45 @@ class Scraper {
 
 			$items = $xpath->query('//p/a');		
 			
-			$urladresses = array();
+			
 			//plocka ut hemside-adress
 			foreach ($items as $item) {
 				$urladresses[] = $item->nodeValue;
 			}
+
+			//felhantera 404 mm
 			
-			sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
+			//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 		}
 
 		return $urladresses;
 	}
 
-	private function getCity ($urls) {		//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!
+	public function getCity ($urls) {		//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!
 		//$urladresses = array();
-		
+		$cities = array();
 		foreach ($urls as $pageToVisit) {
 			$urlSrc = $this->curlGet($pageToVisit);
 			$xpath = $this->returnXPath($urlSrc);
 
 			$items = $xpath->query('//span[@class = "ort"]');		//plockar ut url på sidan i en lista
 			
-			$cities = array();
+			
 			foreach ($items as $item) {
-				$cities[] = $item->nodeValue;
+				$city = $item->nodeValue; 
+				$cities[] = $cleanedCity = substr($city, 5);
 			}
 			
-			sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
+			//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 		}
 
 		return $cities;
+	}
+
+	public function getLogo() {
+
+
+		return $logos;
 	}
 
 
