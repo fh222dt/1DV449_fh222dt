@@ -84,7 +84,10 @@ class Scraper {
 			//preg_match_all("/\d+/", $item->getAttribute("href"), $producerId[]);
 		}
 
-		return $producer;
+		$content = serialize($producer);
+		file_put_contents("data/name.txt", $content);
+
+		//return $producer;
 	}
 
 	public function getProducerId () {
@@ -104,7 +107,9 @@ class Scraper {
 			$producerId[] = $cleanedid = substr($id, 10);
 		}*/
 
-		return $producerId;
+		$content = serialize($producerId);
+		file_put_contents("data/id.txt", $content);
+		//return $producerId;
 	}
 
 	private function getHomepages () {
@@ -123,7 +128,9 @@ class Scraper {
 		return $urls;
 	}
 
-	public function getUrl ($urls) {	//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!	
+	public function getUrl () {	//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!	
+		$urls = $this->getHomepages();
+
 		$urladresses = array();
 		
 		foreach ($urls as $pageToVisit) {
@@ -143,17 +150,20 @@ class Scraper {
 			//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 		}
 
-		return $urladresses;
+		$content = serialize($urladresses);
+		file_put_contents("data/url.txt", $content);
+		//return $urladresses;
 	}
 
-	public function getCity ($urls) {		//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!
-		//$urladresses = array();
+	public function getCity () {
+		$urls = $this->getHomepages();
+
 		$cities = array();
 		foreach ($urls as $pageToVisit) {
 			$urlSrc = $this->curlGet($pageToVisit);
 			$xpath = $this->returnXPath($urlSrc);
 
-			$items = $xpath->query('//span[@class = "ort"]');		//plockar ut url på sidan i en lista
+			$items = $xpath->query('//span[@class = "ort"]');
 			
 			
 			foreach ($items as $item) {
@@ -164,50 +174,41 @@ class Scraper {
 			//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 		}
 
-		return $cities;
+		$content = serialize($cities);
+		file_put_contents("data/city.txt", $content);
+		//return $cities;
 	}
 
-	public function getLogo() {
+	public function getLogo() {			//spara bild med id ist för filnamn
+		$urls = $this->getHomepages();
 
+		$logos = array();
+		foreach ($urls as $pageToVisit) {
+			$urlSrc = $this->curlGet($pageToVisit);
+			$xpath = $this->returnXPath($urlSrc);
+
+			$items = $xpath->query('//img/@src');
+			
+			
+			foreach ($items as $item) {
+				$logos[] = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . $item->nodeValue;
+			}
+
+			foreach ($logos as $item) {
+				$imgName = end(explode('/', $item));
+
+				if (getimagesize($item)) {
+					$imgFile = $this->curlGet($item);
+					file_put_contents("data/img/$imgName", "$imgFile");
+				}
+			}
+
+
+
+		}
 
 		return $logos;
 	}
-
-
-
-	///////////////////////////////////////////////////////////////
-
-		/*$dom = new DomDocument();
-
-		if($dom->loadHTML($scraped)) {			//$data
-			$xpath = new DOMXPath($dom);
-			$items = $xpath->query('//td/a');
-
-			//plocka ut namn & id
-			$producer = array();
-			$producerId = array();
-			foreach($items as $item) {
-				$producer[] = $item->nodeValue; 
-				//$producerId[] = $name->getAttribute("href"). "<br>";
-				preg_match_all("/\d+/", $item->getAttribute("href"), $producerId[]);
-			}
-
-			//plocka ut alla undersidor
-			$urls = array();
-			foreach($items as $item) {
-				$urls[] = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . $item->getAttribute("href");
-			}
-			foreach ($urls as $pageToVisit) {
-				$urlSrc = curlGet($pageToVisit);
-			}
-		}
-		else {
-			die("Fel vid inläsning av HTML");
-		}
-
-
-		var_dump($urls);*/
-
 	
 }
 

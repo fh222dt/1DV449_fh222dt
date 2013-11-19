@@ -1,0 +1,1 @@
+a:11:{i:0;s:9:"Hultsfred";i:1;s:16:"MÃ¶rbylÃ¥nga";i:2;s:10:"Oskarshamn";i:3;s:8:"Borgholm";i:4;s:15:"SÃ¶derÃ¥kra";i:5;s:10:"LÃ¶ttorp";i:6;s:13:"VassmolÃ¶sa";i:7;s:12:"TIMMERNABBEN";i:8;s:9:"SturkÃ¶";i:9;s:6:"Kalmar";i:10;s:16:"MÃ¶rbylÃ¥nga";}

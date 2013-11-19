@@ -4,6 +4,10 @@ require_once("output.php");
 require_once("producers.php");
 
 $scrape = new Scraper();
+$scrape->getProducer();
+$scrape->getProducerId();
+$scrape->getUrl();
+$scrape->getCity();
 
 //echo $scrape->doSracpe();
 

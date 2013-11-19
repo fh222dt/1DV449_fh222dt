@@ -10,12 +10,24 @@ class Producers {
 
 		$this->scraper = new Scraper();
 
-		$name = $this->scraper->getProducer();
-		$id = $this->scraper->getProducerId();
-		$url = $this->scraper->getUrl();
-		$city = $this->scraper->getCity();
+		//$logo = $this->scraper->getLogo();
+		//$name = $this->scraper->getProducer();
+		$name = file_get_contents("data/name.txt");
+		$name = unserialize($name);
 
-		//print_r($id);
+		//$id = $this->scraper->getProducerId();
+		$id = file_get_contents("data/id.txt");
+		$id = unserialize($id);
+
+		//$url = $this->scraper->getUrl();
+		$url = file_get_contents("data/url.txt");
+		$url = unserialize($url);
+
+		//$city = $this->scraper->getCity();
+		$city = file_get_contents("data/city.txt");
+		$city = unserialize($city);
+
+		//print_r($logo);
 
 		//$i = 1;
 		$producersArray = array();
@@ -24,11 +36,11 @@ class Producers {
 
 			$producer = new Producers();
 
-			$producer->logo = "BILD";
+			$producer->logo = "<img width='100px' src='data/img/vinager.jpg'> ";	//ändra sen!!!!!!!!!!!!!!!!!
 			$producer->name = $name[$i];
 			$producer->id = $id[$i][0];
-			$producer->url = "www.fridasblommor.se";
-			$producer->city = "Kungsängen";
+			$producer->url = $url[$i];
+			$producer->city = $city[$i];
 			$producer->time = "Hämtad 8 ggr, senast 14:58";
 
 			
