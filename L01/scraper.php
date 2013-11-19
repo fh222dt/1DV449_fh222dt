@@ -5,10 +5,17 @@ class Scraper {
 
 	public function doSracpe() {
 		$this->scraped = $this->curlGet("http://vhost3.lnu.se:20080/~1dv449/scrape/check.php");
+		
+		$urls = $this->getHomepages();
+		
+		$producerUrl = $this->getUrl($urls);
 
-		var_dump($this->getProducer());
+		$producerCity = $this->getCity($urls);
 
-		var_dump($this->scraped);
+		var_dump($producerUrl);
+		var_dump($producerCity);
+
+		//var_dump($this->scraped);
 
 	}
 
@@ -91,7 +98,7 @@ class Scraper {
 		return $producerId;
 	}
 
-	private function getHomepage () {
+	private function getHomepages () {
 		$xpath =$this->returnXPath($this->scraped);
 		$items = $xpath->query('//td/a');
 
@@ -101,9 +108,48 @@ class Scraper {
 			$urls[] = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . 
 			$item->getAttribute("href");
 		}
+
+		return $urls;
+	}
+
+	private function getUrl ($urls) {	//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!	
+		
 		foreach ($urls as $pageToVisit) {
-			$urlSrc = curlGet($pageToVisit);
+			$urlSrc = $this->curlGet($pageToVisit);
+			$xpath = $this->returnXPath($urlSrc);
+
+			$items = $xpath->query('//p/a');		
+			
+			$urladresses = array();
+			//plocka ut hemside-adress
+			foreach ($items as $item) {
+				$urladresses[] = $item->nodeValue;
+			}
+			
+			sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 		}
+
+		return $urladresses;
+	}
+
+	private function getCity ($urls) {		//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!
+		//$urladresses = array();
+		
+		foreach ($urls as $pageToVisit) {
+			$urlSrc = $this->curlGet($pageToVisit);
+			$xpath = $this->returnXPath($urlSrc);
+
+			$items = $xpath->query('//span[@class = "ort"]');		//plockar ut url på sidan i en lista
+			
+			$cities = array();
+			foreach ($items as $item) {
+				$cities[] = $item->nodeValue;
+			}
+			
+			sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
+		}
+
+		return $cities;
 	}
 
 
