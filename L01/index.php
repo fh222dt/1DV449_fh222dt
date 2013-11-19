@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	function curl($url) {
 		$useragent = "MyScraper v0.1";		//så att webmastern kan blocka skrapor enkelt
 
@@ -28,7 +28,33 @@
 		$data = curl_exec($ch);
 		curl_close($ch);
 		
-		return $data;	
+		//return $data;	
+	///////////////////////////////////////////////////////////////
+
+		$dom = new DomDocument();
+
+		if($dom->loadHTML($data)) {
+			$xpath = new DOMXPath($dom);
+			$names = $xpath->query('//td/a');
+
+			//plocka ut namn & id
+			$producer = array();
+			$producerId = array();
+			foreach($names as $name) {
+				$producer[] = $name->nodeValue; 
+
+
+				//$producerId[] = $name->getAttribute("href"). "<br>";
+				preg_match_all("/\d+/", $name->getAttribute("href"), $producerId[]);
+			}
+		}
+		else {
+			die("Fel vid inläsning av HTML");
+		}
+
+
+		var_dump($producerId);
+
 	}
 
 	$scraped = curl("http://vhost3.lnu.se:20080/~1dv449/scrape/check.php");
