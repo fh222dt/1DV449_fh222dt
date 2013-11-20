@@ -1,1 +1,1 @@
-a:11:{i:0;s:9:"Hultsfred";i:1;s:12:"Mörbylånga";i:2;s:10:"Oskarshamn";i:3;s:8:"Borgholm";i:4;s:11:"Söderåkra";i:5;s:8:"Löttorp";i:6;s:11:"Vassmolösa";i:7;s:12:"TIMMERNABBEN";i:8;s:7:"Sturkö";i:9;s:6:"Kalmar";i:10;s:12:"Mörbylånga";}
+a:12:{i:0;s:9:"Hultsfred";i:1;s:12:"Mörbylånga";i:2;s:10:"Oskarshamn";i:3;s:8:"Borgholm";i:4;s:11:"Söderåkra";i:5;s:8:"Löttorp";i:6;s:11:"Vassmolösa";i:7;s:12:"TIMMERNABBEN";i:8;s:7:"Sturkö";i:9;s:6:"Kalmar";i:10;s:6:"saknas";i:11;s:12:"Mörbylånga";}

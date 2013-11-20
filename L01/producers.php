@@ -36,12 +36,13 @@ class Producers {
 
 			$producer = new Producers();
 
-			$producer->logo = "<img width='100px' src='data/img/vinager.jpg'> ";	//ändra sen!!!!!!!!!!!!!!!!!
+				
 			$producer->name = $name[$i];
 			$producer->id = $id[$i][0];
 			$producer->url = $url[$i];
 			$producer->city = $city[$i];
-			$producer->time = "Hämtad 8 ggr, senast 14:58";
+			$producer->time = "8 ggr, senast 14:58";
+			$producer->logo = $this->getLogo($producer->id);
 
 			
 
@@ -54,4 +55,19 @@ class Producers {
 
 	return $producersArray;
 	} 
+
+	private function getLogo($id) {
+		try {
+			$logo = file_get_contents("data/img/$id");
+			$logo = unserialize($logo);
+		}
+
+		catch (Exception $e) {
+			
+			
+			$logo = "saknas";
+		}
+
+		return $logo;
+	}
 }

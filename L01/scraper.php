@@ -8,21 +8,24 @@ class Scraper {
 		
 		$urls = $this->getHomepages();
 		
-		$producerUrl = $this->getUrl($urls);
+		$producerUrl = $this->getUrl();
 
 		$producerCity = $this->getCity($urls);
 
 		$names = $this->getProducer();
 
-		//var_dump($producerUrl);
+		var_dump($producerUrl);
 		//var_dump($producerCity);
 
-		var_dump($names);
+		//var_dump($urls);
 
+		//$test = $this->curlGet("http://vhost3.lnu.se:20080/~1dv449/scrape/secure/producent_19.php");
+
+		//var_dump($test);
 	}
 
 
-	private function curlGet($url) {
+	public function curlGet($url) {
 		$useragent = "MyScraper v0.1";		//så att webmastern kan blocka skrapor enkelt
 
 		$ch = curl_init();
@@ -49,6 +52,7 @@ class Scraper {
 		//
 
 		$httpResponse = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		//curl_setopt($ch, CURLOPT_POST, 0);
 		if ($httpResponse == 404) {
 				$data = "saknas";
 			}
@@ -63,7 +67,7 @@ class Scraper {
 
 	}	
 
-	private function returnXPath($data) {
+	public function returnXPath($data) {
 		$dom = new DomDocument();
 		$data = mb_convert_encoding($data, 'HTML-ENTITIES', "UTF-8");
 
@@ -85,19 +89,14 @@ class Scraper {
 
 		//plocka ut namn
 		$producer = array();
-		//$producerId = array();
 		
 		foreach($items as $item) {
 
 			$producer[] = $item->nodeValue; 
-			//$producerId[] = $name->getAttribute("href"). "<br>";
-			//preg_match_all("/\d+/", $item->getAttribute("href"), $producerId[]);
 		}
 
 		$content = serialize($producer);
 		file_put_contents("data/name.txt", $content);
-
-		//return $producer;
 	}
 
 	public function getProducerId () {
@@ -133,7 +132,6 @@ class Scraper {
 			$urls[] = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . 
 			$item->getAttribute("href");
 		}
-
 		
 		return $urls;
 	}
@@ -143,26 +141,34 @@ class Scraper {
 
 		$urladresses = array();
 		
-		foreach ($urls as $pageToVisit) {
-			$urlSrc = $this->curlGet($pageToVisit);
-			$xpath = $this->returnXPath($urlSrc);
+			foreach ($urls as $pageToVisit) {
+				$urlSrc = $this->curlGet($pageToVisit);
+				$xpath = $this->returnXPath($urlSrc);
 
-			$items = $xpath->query('//p/a');		
-			
-			
-			//plocka ut hemside-adress
-			foreach ($items as $item) {
+				$items = $xpath->query('//p/a');
+
+				if ($items->length != 0) {		
+
+					//plocka ut hemside-adress
+					foreach ($items as $item) {
+
+							$urladresses[] = $item->nodeValue;											
+					}
+				}
+				else {
+					$missing = "saknas";
+					$urladresses[] = $missing;
+				}
+
 				
-				$urladresses[] = $item->nodeValue;
+				//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 			}
-
-			//felhantera 404 mm
-			
-			//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
-		}
+		
+		
 
 		$content = serialize($urladresses);
 		file_put_contents("data/url.txt", $content);
+
 		//return $urladresses;
 	}
 
@@ -176,23 +182,25 @@ class Scraper {
 
 			$items = $xpath->query('//span[@class = "ort"]');
 
-			$ch = curl_init();
-			$httpResponse = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			foreach ($items as $item) {
-				if ($httpResponse == 404) {
-					$item->nodeValue ="saknas";
-				}
+			if ($items->length != 0) {
+				foreach ($items as $item) {
 
-				$city = $item->nodeValue; 
-				$cities[] = $cleanedCity = substr($city, 5);
+					$city = $item->nodeValue; 
+					$cities[] = $cleanedCity = substr($city, 5);
+				}
 			}
+			else {
+				$missing = "saknas";
+				$cities[] = $missing;
+			}
+
 			
 			//sleep(rand(1, 3));	//för att inte verka som en dos-attack & låta servern vila lite		
 		}
 
 		$content = serialize($cities);
 		file_put_contents("data/city.txt", $content);
-		//return $cities;
+		
 	}
 
 	public function getLogo() {			//spara bild med id ist för filnamn
