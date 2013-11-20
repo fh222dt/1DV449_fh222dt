@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once("scraper.php");
 
 class Producers {

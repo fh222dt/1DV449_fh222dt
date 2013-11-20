@@ -3,6 +3,8 @@ require_once("scraper.php");
 require_once("output.php");
 require_once("producers.php");
 
+setlocale (LC_TIME, "Swedish");		//vet ej om det behövs????????????
+
 $scrape = new Scraper();
 $scrape->getProducer();
 $scrape->getProducerId();

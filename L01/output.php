@@ -1,7 +1,16 @@
 <?php
 class output {
 	public function displayTable ($producer) {
-		$table = "<h2>Mat från nära producenter</h2>";
+		$table = "<html>
+					<head>
+					<meta charset='utf-8'>
+					<title>fh222dt webbskrapa</title>
+					<link rel='stylesheet' href='bootstrap/css/bootstrap.css'>
+					<link rel='stylesheet' href='bootstrap/css/bootstrap-responsive.css'>
+					</head>
+					<body>";
+
+		$table.= "<h2>Mat från nära producenter</h2>";
 
 		$table.="<table>
 						<thead>
@@ -27,8 +36,11 @@ class output {
 						</tr>";				
 		}
 
-		$table.="</tbody>
-					</table>";
+		$table.="
+				</body>
+				</tbody>
+				</table>
+				</html>";
 
 		return $table;
 	}

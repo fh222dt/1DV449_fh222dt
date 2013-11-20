@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 class Scraper {
 
 	private $login = "http://vhost3.lnu.se:20080/~1dv449/scrape/check.php";
@@ -30,8 +30,8 @@ class Scraper {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	// Returning transfer as a string
 		curl_setopt($ch, CURLOPT_COOKIESESSION, TRUE);	// Use cookies
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);	// Follow Location: headers
-		curl_setopt($ch, CURLOPT_COOKIEFILE, dirname(__FILE__) . "cookie.txt");	// Setting cookiefile
-		curl_setopt($ch, CURLOPT_COOKIEJAR, dirname(__FILE__) . "cookie.txt");	// Setting cookiejar
+		curl_setopt($ch, CURLOPT_COOKIEFILE, dirname(__FILE__) . "/data/cookie.txt");	// Setting cookiefile
+		curl_setopt($ch, CURLOPT_COOKIEJAR, dirname(__FILE__) . "/data/cookie.txt");	// Setting cookiejar
 		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);	// Setting useragent
 		curl_setopt($ch, CURLOPT_URL, $url);	// Setting URL to POST to
 		curl_setopt($ch, CURLOPT_POST, 1);		// Setting method as POST
@@ -48,7 +48,15 @@ class Scraper {
 		//curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
 		//
 
-		$data = curl_exec($ch);
+		$httpResponse = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if ($httpResponse == 404) {
+				$data = "saknas";
+			}
+
+		else {
+			$data = curl_exec($ch);
+		}
+		
 		curl_close($ch);
 		
 		return $data;
@@ -57,6 +65,7 @@ class Scraper {
 
 	private function returnXPath($data) {
 		$dom = new DomDocument();
+		$data = mb_convert_encoding($data, 'HTML-ENTITIES', "UTF-8");
 
 		if($dom->loadHTML($data)) {			//$data
 			$xpath = new DOMXPath($dom);
@@ -79,6 +88,7 @@ class Scraper {
 		//$producerId = array();
 		
 		foreach($items as $item) {
+
 			$producer[] = $item->nodeValue; 
 			//$producerId[] = $name->getAttribute("href"). "<br>";
 			//preg_match_all("/\d+/", $item->getAttribute("href"), $producerId[]);
@@ -128,7 +138,7 @@ class Scraper {
 		return $urls;
 	}
 
-	public function getUrl () {	//blir bara sista som fastnar i arrayen !!!!!!!!!!!!!!!!	
+	public function getUrl () {		
 		$urls = $this->getHomepages();
 
 		$urladresses = array();
@@ -142,6 +152,7 @@ class Scraper {
 			
 			//plocka ut hemside-adress
 			foreach ($items as $item) {
+				
 				$urladresses[] = $item->nodeValue;
 			}
 
@@ -164,9 +175,14 @@ class Scraper {
 			$xpath = $this->returnXPath($urlSrc);
 
 			$items = $xpath->query('//span[@class = "ort"]');
-			
-			
+
+			$ch = curl_init();
+			$httpResponse = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			foreach ($items as $item) {
+				if ($httpResponse == 404) {
+					$item->nodeValue ="saknas";
+				}
+
 				$city = $item->nodeValue; 
 				$cities[] = $cleanedCity = substr($city, 5);
 			}
