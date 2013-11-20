@@ -11,7 +11,7 @@ $scrape->getProducerId();
 $scrape->getUrl();
 $scrape->getCity();
 
-echo $scrape->doSracpe();
+//echo $scrape->doSracpe();
 
 $output = new Output();
 

@@ -14,7 +14,9 @@ class Scraper {
 
 		$names = $this->getProducer();
 
-		var_dump($producerUrl);
+		$logos = $this->getLogo();
+
+		var_dump($logos);
 		//var_dump($producerCity);
 
 		//var_dump($urls);
@@ -25,7 +27,7 @@ class Scraper {
 	}
 
 
-	public function curlGet($url) {
+	private function curlGet($url) {
 		$useragent = "MyScraper v0.1";		//så att webmastern kan blocka skrapor enkelt
 
 		$ch = curl_init();
@@ -67,7 +69,7 @@ class Scraper {
 
 	}	
 
-	public function returnXPath($data) {
+	private function returnXPath($data) {
 		$dom = new DomDocument();
 		$data = mb_convert_encoding($data, 'HTML-ENTITIES', "UTF-8");
 
@@ -207,6 +209,8 @@ class Scraper {
 		$urls = $this->getHomepages();
 
 		$logos = array();
+		$fileNo = array();
+
 		foreach ($urls as $pageToVisit) {
 			$urlSrc = $this->curlGet($pageToVisit);
 			$xpath = $this->returnXPath($urlSrc);
@@ -215,24 +219,38 @@ class Scraper {
 			
 			
 			foreach ($items as $item) {
-				$logos[] = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . $item->nodeValue;
-			}
+				$imgPath[] = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . $item->nodeValue;
+				//$logo = "http://vhost3.lnu.se:20080/~1dv449/scrape/secure/" . $item->nodeValue;
+				$allNo = preg_replace("/[^0-9]/","",$pageToVisit);
+				$fileNo[] = substr($allNo, 10);
 
-			foreach ($logos as $item) {
-				$imgName = end(explode('/', $item));
-
-				if (getimagesize($item)) {
-					$imgFile = $this->curlGet($item);
-					file_put_contents("data/img/$imgName", "$imgFile");
-				}
-			}
-
-
+			}			
 
 		}
 
-		return $logos;
+		
+		for ($i = 0; $i < count($imgPath); $i++) {		
+				
+			$ext = pathinfo($imgPath[$i], PATHINFO_EXTENSION);
+
+			
+			$imgName = $fileNo[$i] . "." . $ext;				
+
+			if (getimagesize($imgPath[$i])) {
+				$imgFile = $this->curlGet($imgPath[$i]);
+				file_put_contents("data/img/$imgName", "$imgFile");
+			}
+
+		}	
+		
+			var_dump($fileNo);
+			var_dump($imgPath);
+		
 	}
+
+
+
+
 	
 }
 

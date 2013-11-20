@@ -10,62 +10,49 @@ class Producers {
 
 		$this->scraper = new Scraper();
 
-		//$logo = $this->scraper->getLogo();
-		//$name = $this->scraper->getProducer();
 		$name = file_get_contents("data/name.txt");
 		$name = unserialize($name);
 
-		//$id = $this->scraper->getProducerId();
 		$id = file_get_contents("data/id.txt");
 		$id = unserialize($id);
 
-		//$url = $this->scraper->getUrl();
 		$url = file_get_contents("data/url.txt");
 		$url = unserialize($url);
 
-		//$city = $this->scraper->getCity();
 		$city = file_get_contents("data/city.txt");
 		$city = unserialize($city);
 
-		//print_r($logo);
-
-		//$i = 1;
 		$producersArray = array();
 
-		for ($i = 0; $i < count($name); $i++) {		//ändra sen!!!!!!!!!!!!!!!!!
+		for ($i = 0; $i < count($name); $i++) {
 
 			$producer = new Producers();
-
 				
 			$producer->name = $name[$i];
 			$producer->id = $id[$i][0];
 			$producer->url = $url[$i];
 			$producer->city = $city[$i];
 			$producer->time = "8 ggr, senast 14:58";
-			$producer->logo = $this->getLogo($producer->id);
+			$producer->logo = $this->getLogo($producer->id);			
 
-			
+			array_push($producersArray, $producer);			
+		}	
 
-			array_push($producersArray, $producer);
+		return $producersArray;
 
-			
-		}
-
-		
-
-	return $producersArray;
 	} 
 
-	private function getLogo($id) {
-		try {
-			$logo = file_get_contents("data/img/$id");
-			$logo = unserialize($logo);
+	private function getLogo($id) {				//id måste innehålla filändelsen oxå!!!!!!
+		$file = glob ("data/img/$id.*");
+
+		if(empty($file)) {
+			$logo = "saknas";			
 		}
 
-		catch (Exception $e) {
-			
-			
-			$logo = "saknas";
+		else {
+			//$file = file_get_contents("data/img/$id");
+			//$logo = unserialize($logo);
+			$logo = "<img width='100' src='$file[0]'>";	//////////////filändelsen
 		}
 
 		return $logo;
