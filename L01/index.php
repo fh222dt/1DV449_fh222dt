@@ -3,53 +3,52 @@ require_once("scraper.php");
 require_once("output.php");
 require_once("producers.php");
 
-//setlocale (LC_TIME, "Swedish");		//vet ej om det behövs????????????
+/*function doScrape () {
+	$scrape = new Scraper();
+	$scrape->getProducer();
+	$scrape->getProducerId();
+	$scrape->getUrl();
+	$scrape->getCity();
+	$scrape->getTimeStamp();
+}*/
 
-$scrape = new Scraper();
-$scrape->getProducer();
-$scrape->getProducerId();
-$scrape->getUrl();
-$scrape->getCity();
-$scrape->getTimeStamp();
-
-//echo $scrape->doSracpe();
+	//echo $scrape->doSracpe();
 
 $output = new Output();
 
 $producers = new Producers();
 $results = $producers->createProducers();
 
-//var_dump($producers);
-
 echo $output->DisplayTable($results);
 
+?>
+<script>	//ej skrivit själv, från http://stackoverflow.com/questions/15219018/run-php-script-every-x-mins-using-ajax-request
+	var milliSeconds = 60000;
+
+	setInterval( function() {
+
+	var xmlhttp;
+
+	if (window.XMLHttpRequest) // code for IE7+, Firefox, Chrome, Opera, Safari
+	{
+	    xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+	    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
+	}
+
+	xmlhttp.onreadystatechange=function()
+	{
+	      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	      {
+	         console.log ( xmlhttp.responseText );
+	      } 
+	}
+
+	xmlhttp.open("POST","doscrape.php",true);
+	xmlhttp.send();
 
 
-
-
-/*$urlSrc = $scrape->curlGet("http://vhost3.lnu.se:20080/~1dv449/scrape/secure/producent_19.php");
-			$xpath = $scrape->returnXPath($urlSrc);
-
-			$items = $items = $xpath->query('//span[@class = "ort"]');		
-
-			$urladresses = array();
-			//plocka ut hemside-adress
-		if ($items->length != 0) {
-			foreach ($items as $item) {
-
-
-			}
-		}
-
-		else {
-			$missing = "saknas";
-			$urladresses[] = $missing;
-		}
-
-			//echo "nodevalue: $item->nodeValue ";
-
-
-var_dump($items);
-
-var_dump($urladresses);
-*/
+	}, milliSeconds);
+</script>

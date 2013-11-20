@@ -6,7 +6,6 @@ class output {
 					<meta charset='utf-8'>
 					<title>fh222dt webbskrapa</title>
 					<link rel='stylesheet' href='bootstrap/css/bootstrap.css'>
-					<link rel='stylesheet' href='bootstrap/css/bootstrap-responsive.css'>
 					</head>
 					<body>";
 
@@ -27,12 +26,12 @@ class output {
 
 		foreach ($producer as $row) {
 				$table.="<tr>
-						<td>$row->logo</td>
-						<td>$row->name</td>
-						<td>$row->id</td>
-						<td>$row->url</td>
-						<td>$row->city</td>
-						<td>$row->time</td>
+						<td class='text-center'>$row->logo</td>
+						<td class='text-center'>$row->name</td>
+						<td class='text-center id'>$row->id</td>
+						<td class='text-center'>$row->url</td>
+						<td class='text-center'>$row->city</td>
+						<td class='text-center'>$row->time</td>
 						</tr>";				
 		}
 
@@ -40,6 +39,7 @@ class output {
 				</body>
 				</tbody>
 				</table>
+				<footer>Webbskrapa av Frida Holmström fh222dt</footer>
 				</html>";
 
 		return $table;
