@@ -249,7 +249,26 @@ class Scraper {
 	}
 
 
+	public function getTimeStamp () {
+		if(file_exists("data/stamp.txt"))  {
+			$old = file_get_contents("data/stamp.txt");
+			$old = unserialize($old);
+			$loads = $old[0];
+			$loads++;
+		}
+		else {
+			$loads = 1;
+		}
 
+		
+		$time = strftime("%X");
+
+		$stamp = array("$loads","$loads ggr, <br> senast kl $time");
+
+		$stamp = serialize($stamp);
+		file_put_contents("data/stamp.txt", $stamp);
+
+	}
 
 	
 }

@@ -22,6 +22,9 @@ class Producers {
 		$city = file_get_contents("data/city.txt");
 		$city = unserialize($city);
 
+		$time = file_get_contents("data/stamp.txt");
+		$time = unserialize($time);
+
 		$producersArray = array();
 
 		for ($i = 0; $i < count($name); $i++) {
@@ -32,7 +35,7 @@ class Producers {
 			$producer->id = $id[$i][0];
 			$producer->url = $url[$i];
 			$producer->city = $city[$i];
-			$producer->time = "8 ggr, senast 14:58";
+			$producer->time = $time[1];
 			$producer->logo = $this->getLogo($producer->id);			
 
 			array_push($producersArray, $producer);			
