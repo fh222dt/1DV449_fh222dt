@@ -5,7 +5,6 @@ class Producers {
 	
 	private $scraper = "";
 
-
 	public function createProducers(){
 
 		$this->scraper = new Scraper();
@@ -45,17 +44,14 @@ class Producers {
 
 	} 
 
-	private function getLogo($id) {				//id måste innehålla filändelsen oxå!!!!!!
+	private function getLogo($id) {	
 		$file = glob ("data/img/$id.*");
 
 		if(empty($file)) {
 			$logo = "saknas";			
 		}
-
 		else {
-			//$file = file_get_contents("data/img/$id");
-			//$logo = unserialize($logo);
-			$logo = "<img width='100' src='$file[0]'>";	//////////////filändelsen
+			$logo = "<img width='100' src='$file[0]'>";
 		}
 
 		return $logo;

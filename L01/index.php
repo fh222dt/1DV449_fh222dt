@@ -12,8 +12,6 @@ require_once("producers.php");
 	$scrape->getTimeStamp();
 }*/
 
-	//echo $scrape->doSracpe();
-
 $output = new Output();
 
 $producers = new Producers();
