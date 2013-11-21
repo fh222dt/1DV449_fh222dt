@@ -28,11 +28,11 @@ class Scraper {
 		//curl_setopt($ch, CURLOPT_POST, 0);
 		if ($httpResponse == 404) {
 				$data = "saknas";
-			}
+			}*/
 
-		else {
-			$data = curl_exec($ch);
-		}*/
+		
+		$data = curl_exec($ch);
+		
 		
 		curl_close($ch);
 		
