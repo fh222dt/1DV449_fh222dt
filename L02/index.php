@@ -7,15 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="ico/favicon.png">
-
-    <title>Närproducerat 2.0 - Logga in</title>
-
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    
+    <link href="css/bootstrap.css" rel="stylesheet">    
     <link href="css/custom.css" type="text/css" rel="stylesheet">
 
-    
+    <title>Närproducerat 2.0 - Logga in</title>   
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -32,8 +28,7 @@
     <div class="container">
 
       <form class="form-signin" action="check.php" method="POST">
-        <h2 class="form-signin-heading">Logga in
-		</h2>
+        <h2 class="form-signin-heading">Logga in</h2>		
         <input value="admin" name="username" type="text" class="form-control" placeholder="Användarnamn" required autofocus>
         <input value="admin" name="password" type="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Logga in</button>
