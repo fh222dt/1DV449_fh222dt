@@ -24,9 +24,7 @@
   </head>
 
   <body>
-
     <div class="container">
-
       <form class="form-signin" action="check.php" method="POST">
         <h2 class="form-signin-heading">Logga in</h2>		
         <input value="admin" name="username" type="text" class="form-control" placeholder="Användarnamn" required autofocus>

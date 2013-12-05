@@ -18,9 +18,7 @@
     <link rel="stylesheet" href="css/lightbox.css" media="screen"/>
     <link href="css/custom.css" type="text/css" rel="stylesheet">	
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="http://vhost3.lnu.se:20080/~1dv449/scrape/css.php?css=grid1" rel="stylesheet">
-	<link href="http://vhost3.lnu.se:20080/~1dv449/scrape/css.php?css=grid2" rel="stylesheet">
-    
+        
 	<title>Messy Labbage</title>
 	    
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -92,7 +90,7 @@
 				</div>			
   			</div><!-- mess_container -->
     	</div> <!-- /container -->
-    	
+
     <script type="text/javascript" src="js/mess.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.js"></script>
 	<script type="text/javascript" src="js/ajax_minified.js"></script>
