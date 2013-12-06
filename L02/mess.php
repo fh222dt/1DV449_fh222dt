@@ -91,7 +91,7 @@
   			</div><!-- mess_container -->
     	</div> <!-- /container -->
 
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/mess.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.js"></script>
 	<script src="js/lightbox.js"></script>
