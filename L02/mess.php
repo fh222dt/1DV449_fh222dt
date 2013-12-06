@@ -94,8 +94,6 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/mess.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.js"></script>
-	<script type="text/javascript" src="js/ajax_minified.js"></script>	
-	<script type="text/javascript" src="js/longpoll.js"></script>	
 	<script src="js/lightbox.js"></script>
   </body>
 </html>
