@@ -16,8 +16,9 @@
 	<link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/screen.css" media="screen"/>
     <link rel="stylesheet" href="css/lightbox.css" media="screen"/>
-    <link href="css/custom.css" type="text/css" rel="stylesheet">	
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/custom.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">	
+    
 
 	<title>Messy Labbage</title>
 	    
