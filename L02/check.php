@@ -5,8 +5,20 @@ require_once("sec.php");
 $u = $_POST['username'];
 $p = $_POST['password'];
 
+//validate
+function validate($string) {
+		$string = ltrim($string);
+		$string = rtrim($string);
+		$string = strip_tags($string);
+		return $string;
+	}
+
+$validatedUser = validate($u);
+$validatedPass = validate($p);
+
+
 // Check if user is OK
-if(isUser($u, $p)) {
+if(isUser($validatedUser, $validatedPass)) {
 	// set the session
 	sec_session_start();
 	$_SESSION['login_string'] = hash('sha512', "Come_On_You_Spurs" +$u); 
