@@ -24,7 +24,11 @@ $( document ).ready(
 			  	url: "functions.php",
 			  	data: {function: "add", name: name_val, message: message_val, pid: pid}
 			}).done(function(data) {
-			  alert(data);
+			  //alert(data);
+			  //töm alla meddelanden
+			  $( "#mess_p_mess").text("");
+			  //hämta meddelanden
+			  getAllMsg(pid);
 			});
 		  
 	  });
@@ -49,7 +53,7 @@ $.ajax({
   	url: "functions.php",
   	data: {function: "producers", pid: pid}
 }).done(function(data) { // called when the AJAX call is ready
-	console.log(data);
+	//console.log(data);
 	var j = JSON.parse(data);
 	
 	$("#mess_p_headline").text("Meddelande till " +j.name +", " +j.city);
@@ -73,7 +77,15 @@ $.ajax({
 	}
 });
 
-// Get all the messages for the producers through functions.php
+getAllMsg(pid);
+
+// show the div if its unvisible
+$("#mess_container").show("slow");
+
+}
+
+function getAllMsg(pid) {
+	// Get all the messages for the producers through functions.php
 $.ajax({
 	type: "GET",
   	url: "functions.php",
@@ -93,19 +105,35 @@ $.ajax({
 			type: "GET",
 		  	url: "functions.php",
 		  	data: {function: "getMessage", serial: entry.serial},
-			timeout: 2000
+			timeout: 2000,
+			async: false
 		}).done(function(data) {
+			
 			var j = JSON.parse(data);
-		//	console.log(j);
+
+			/*//j.serial.sort(compare);
+			var sortable = [];
+			for (var obj in j) {
+				sortable.push(obj, j[obj])
+			}
+			//sortable[9].sort(compare);
+
+			function compare(a, b){
+				return a - b;
+			}
+
+			//console.log(sortable);
+
 			$( "#mess_p_mess" ).append( "<p class='message_container'>" +j.message +"<br />Skrivet av: " +j.name +"</p>");
-	
+			*/
+			doSomeAppending(j);
 		});
 	});
 	}
-	
+
+	console.log("detta kommer ur data: " + data);
 });
-
-// show the div if its unvisible
-$("#mess_container").show("slow");
-
+function doSomeAppending(j) {
+	$( "#mess_p_mess" ).prepend( "<p class='message_container'>" +j.message +"<br />Skrivet av: " +j.name +"</p>");
+}
 }
