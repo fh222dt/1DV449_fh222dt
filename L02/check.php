@@ -21,8 +21,8 @@ $validatedPass = validate($p);
 if(isUser($validatedUser, $validatedPass)) {
 	// set the session
 	sec_session_start();
-	$_SESSION['login_string'] = hash('sha512', "Come_On_You_Spurs" +$u); 
-	$_SESSION['user'] = $u;
+	$_SESSION['login_string'] = hash('sha512', "Come_On_You_Spurs" +$validatedUser); 
+	$_SESSION['user'] = $validatedUser;
 	header("Location: img/middle.php");
 }
 else {

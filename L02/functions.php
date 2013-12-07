@@ -11,15 +11,22 @@ if(isset($_GET['function'])) {
 	
 	if($_GET['function'] == 'logout') {
 		logout();
-    } elseif($_GET['function'] == 'add') {
+    } 
+
+    elseif($_GET['function'] == 'add') {
        
-	    $name = $_GET["name"];
+    $name = $_GET["name"];
 		$message = $_GET["message"];
 		$pid = $_GET["pid"];
+
+    $validatedName = validate($name);
+    $validatedMess = validate($message);
+    $validatedPid = validate($pid);
 		
-		addToDB($name, $message, $pid);
+		addToDB($validatedName, $validatedMess, $validatedPid);
 		echo "Det gick fint! Ladda om sidan för att se ditt meddelande!";
     }
+
     elseif($_GET['function'] == 'producers') {
     	$pid = $_GET["pid"];
    		echo(json_encode(getProducer($pid)));
@@ -33,3 +40,11 @@ if(isset($_GET['function'])) {
    	   	echo(json_encode(getMessage($serial)));
     }  
 }
+
+//validate
+function validate($string) {
+    $string = ltrim($string);
+    $string = rtrim($string);
+    $string = strip_tags($string);
+    return $string;
+  }
