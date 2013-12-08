@@ -25,6 +25,7 @@ $( document ).ready(
 			  	data: {function: "add", name: name_val, message: message_val, pid: pid}
 			}).done(function(data) {
 			  //alert(data);
+			  
 			  //töm alla meddelanden
 			  $( "#mess_p_mess").text("");
 			  //hämta meddelanden
@@ -110,22 +111,6 @@ $.ajax({
 		}).done(function(data) {
 			
 			var j = JSON.parse(data);
-
-			/*//j.serial.sort(compare);
-			var sortable = [];
-			for (var obj in j) {
-				sortable.push(obj, j[obj])
-			}
-			//sortable[9].sort(compare);
-
-			function compare(a, b){
-				return a - b;
-			}
-
-			//console.log(sortable);
-
-			$( "#mess_p_mess" ).append( "<p class='message_container'>" +j.message +"<br />Skrivet av: " +j.name +"</p>");
-			*/
 			doSomeAppending(j);
 		});
 	});
