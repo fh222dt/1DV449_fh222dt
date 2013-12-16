@@ -37,6 +37,7 @@ var maxMessages = 100;
 			        };
 			 	 
 		 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		 	
 
 			//presentera lista
 			 for (var i = 0; i < maxMessages; i++) {
@@ -44,6 +45,8 @@ var maxMessages = 100;
 			 }
 
 			 //placera ut markers
+
+			var infowindow = new google.maps.InfoWindow();
 			for (var i = 0; i < maxMessages; i++) {
 			 	
 
@@ -52,9 +55,9 @@ var maxMessages = 100;
 			 	 			'<p> Beskrivning: ' + messages[i].description + '</p>' +
 			 	 			'<p> Kategori: ' + messages[i].category + '</p>';
 
-				var info = new google.maps.InfoWindow({
-					 content: content
-					});
+				 var info = new google.maps.InfoWindow({
+				 	 content: content
+				 	});
 
 				var pos = new google.maps.LatLng(messages[i].latitude,messages[i].longitude);			 	 
 
@@ -62,25 +65,16 @@ var maxMessages = 100;
 			 	 	position: pos,
 			 	 	map: map,
 			 	 	title: messages[i].title,
-			 	 	infowindow: info
+			 	 	html: content
 			 	});
 
   				//console.log(messages[i].latitude);
   				
-  				google.maps.event.addListener(marker, 'click', function() {
-  					this.infowindow.close();
-    			this.infowindow.open(map,this);
-  				});
-
-  			
-
+				google.maps.event.addListener(marker, 'click', function() {
+               		infowindow.setContent(this.html);
+               		infowindow.open(map,this);
+       			});
 			}
-
-			
-
 		});
-
-
-
 	
 })();
