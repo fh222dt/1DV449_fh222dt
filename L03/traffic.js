@@ -19,21 +19,29 @@ var FT = FT || {};
 	}).done(function(json){
 			//console.log(json);
 
-			var reports = json.messages;
-			reports.reverse();			//vänder på arrayen så nyast kommer först			
+			var messages = json.messages;
+			messages.reverse();			//vänder på arrayen så nyast kommer först			
 
-			//console.log(reports);
+			console.log(messages);
+
+			//presentera lista
+			for (var i = 0; i < maxMessages; i++) {
+				$("<p>" +i +". "+ messages[i].title + "</p>").appendTo("#list");
+			}
+
+			//placera ut markers
+			CreateMarkers(messages);
 
 			//kategorier
 			$("#all-mess").click(function() {
-  				CreateMarkers(reports);
+  				CreateMarkers(messages);
 			});
 
 			$("#road").click(function() {
 				var road = [];
 				for (var i = 0; i < maxMessages; i++) {
-					if(reports[i].category === 0) {
-						road.push(reports[i]);
+					if(messages[i].category === 0) {
+						road.push(messages[i]);
 					}
 				}
   				CreateMarkers(road);
@@ -43,8 +51,8 @@ var FT = FT || {};
 			$("#public").click(function() {
 				var pTrans = [];
 				for (var i = 0; i < maxMessages; i++) {
-					if(reports[i].category === 1) {
-						pTrans.push(reports[i]);
+					if(messages[i].category === 1) {
+						pTrans.push(messages[i]);
 					}
 				}
   				CreateMarkers(pTrans);
@@ -53,8 +61,8 @@ var FT = FT || {};
 			$("#planed").click(function() {
 				var planed = [];
 				for (var i = 0; i < maxMessages; i++) {
-					if(reports[i].category === 2) {
-						planed.push(reports[i]);
+					if(messages[i].category === 2) {
+						planed.push(messages[i]);
 					}
 				}
   				CreateMarkers(planed);
@@ -63,21 +71,12 @@ var FT = FT || {};
 			$("#other").click(function() {
 				var other = [];
 				for (var i = 0; i < maxMessages; i++) {
-					if(reports[i].category === 3) {
-						other.push(reports[i]);
+					if(messages[i].category === 3) {
+						other.push(messages[i]);
 					}
 				}
   				CreateMarkers(other);
-			});	
-
-			//placera ut markers
-			CreateMarkers(reports);	
-
-			//presentera lista
-			for (var i = 0; i < maxMessages; i++) {
-				$("<p>" +i +". "+ reports[i].title + "</p>").appendTo("#list");
-			}
-			
+			});			
 		});
 	
 })();
@@ -115,8 +114,6 @@ function CreateMarkers(messages){
 	 	 	title: messages[i].title,
 	 	 	html: content
 	 	});
-
-			//console.log(messages[i].latitude);
 			
 		google.maps.event.addListener(marker, 'click', function() {
        		infowindow.setContent(this.html);
