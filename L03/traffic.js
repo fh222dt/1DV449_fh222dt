@@ -3,7 +3,6 @@ var FT = FT || {};
 (FT.start = function () {	
 
 	var url = 'http://api.sr.se/api/v2/traffic/messages?format=json&callback=?&indent=true&pagination=false';
-	var maxMessages = 100;
 
 	$.ajax({
 		type: "GET",
@@ -17,10 +16,15 @@ var FT = FT || {};
 				"återkom vid ett senare tillfälle.</p>").appendTo("#body");
 		}
 	}).done(function(json){
-			//console.log(json);
-
+			
 			var messages = json.messages;
-			messages.reverse();			//vänder på arrayen så nyast kommer först			
+			messages.reverse();			//vänder på arrayen så nyast kommer först
+			
+			var maxMessages = messages.length;
+
+			if (messages.length > 100) {
+				maxMessages = 100;
+			}			
 
 			console.log(messages);
 
@@ -34,10 +38,12 @@ var FT = FT || {};
 
 			//kategorier
 			$("#all-mess").click(function() {
+				console.log("alla");
   				CreateMarkers(messages);
 			});
 
 			$("#road").click(function() {
+				console.log("väg");
 				var road = [];
 				for (var i = 0; i < maxMessages; i++) {
 					if(messages[i].category === 0) {
@@ -83,7 +89,7 @@ var FT = FT || {};
 
 function CreateMarkers(messages){
 	var infowindow = new google.maps.InfoWindow();
-	var maxMessages = 100;
+	var maxMessages = messages.length;
 
 	var mapOptions = {
 			          center: new google.maps.LatLng(59.32893, 18.06491),
