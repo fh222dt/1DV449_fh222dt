@@ -27,7 +27,20 @@
         <li><a id='other' href='#'>Övrigt</a></li>
       </ul>
     </div>
-    <div id="map-canvas" class='pull-left'/>
+
+    <div id="map-canvas" ></div>
+    <div id="priority" class='pull-left'>
+      <img  alt="Mycket allvarlig händelse" src="1.png">
+      <small>Mycket allvarlig händelse  </small>
+      <img  alt="Stor händelse" src="2.png">
+      <small>Stor händelse  </small>
+      <img  alt="Störning" src="3.png">
+      <small>Störning  </small>
+      <img  alt="Information" src="4.png">
+      <small>Information  </small>
+      <img  alt="Mindre störning" src="5.png">
+      <small>Mindre störning </small>
+    </div>
 
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="traffic.js"></script>

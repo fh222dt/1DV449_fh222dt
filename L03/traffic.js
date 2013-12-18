@@ -26,7 +26,7 @@ var FT = FT || {};
 				maxMessages = 100;
 			}			
 
-			console.log(messages);
+			//console.log(messages);
 
 			//presentera lista
 			for (var i = 0; i < maxMessages; i++) {
@@ -191,6 +191,9 @@ function priority(marker) {
 			break;
 		case 5:
 			color = "5.png";
+			break;
+		default:
+			color = "3.png";
 			break;
 	} 
 	return color;
