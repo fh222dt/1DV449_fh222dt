@@ -14,3 +14,16 @@ body {
 #infowindow {
 	width: 300px;
 }
+
+#priority{
+	margin-top: 10px;
+}
+
+#list{
+	width: 200px;
+}
+
+#list p {
+	margin-bottom: 0px;
+}
+

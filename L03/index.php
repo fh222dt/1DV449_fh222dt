@@ -8,27 +8,25 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJs5Lz6qV0SnxxE_tEumFq4CaB54g-S0&sensor=false">
     </script>
-
-    <script type="text/javascript">
-      
-    </script>
-
-
   </head>
   <body>
     <header><h1>Trafikrapport</h1></header>
     
     <div id='list' class='pull-right'>
-      <ul>
+      <h5><strong>Välj vilka meddelanden du vill visa:</strong></h5>
+      <ul class="list-unstyled">
         <li><a id='all-mess' href='#'>Alla meddelanden</a></li>
         <li><a id='road' href='#'>Vägtrafik</a></li>
         <li><a id='public' href='#'>Kollektivtrafik</a></li>
         <li><a id='planed' href='#'>Planerad störning</a></li>
         <li><a id='other' href='#'>Övrigt</a></li>
       </ul>
+      <h5><strong>Senast 100 publicerade meddelanden:</strong></h5>
     </div>
 
-    <div id="map-canvas" ></div>
+    <div id="map-canvas" >
+    </div>
+
     <div id="priority" class='pull-left'>
       <img  alt="Mycket allvarlig händelse" src="1.png">
       <small>Mycket allvarlig händelse  </small>

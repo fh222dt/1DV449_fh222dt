@@ -1,5 +1,5 @@
 var FT = FT || {};
-
+var allMarkers = [];
 (FT.start = function () {	
 
 	var url = 'http://api.sr.se/api/v2/traffic/messages?format=json&callback=?&indent=true&pagination=false';
@@ -30,8 +30,10 @@ var FT = FT || {};
 
 			//presentera lista
 			for (var i = 0; i < maxMessages; i++) {
-				$("<p>" +i +". "+ messages[i].title + "</p>").appendTo("#list");
-			}
+				var no = i+1;
+				//$("<p>" +no+". "+ messages[i].title + "</p>" + "<small>"+messages[i].description+"</small>").appendTo("#list");
+				$("<a href='#' onclick='openWindow("+i+");'>"+no+". "+messages[i].title + "</a></br>").appendTo("#list");
+			} 
 
 			//placera ut markers
 			CreateMarkers(messages);
@@ -121,12 +123,18 @@ function CreateMarkers(messages){
 	 	 	html: content,
 	 	 	icon: priority(messages[i])
 	 	});
+
+	 	allMarkers.push(marker);	//array som anv för att kunna öppna medd. från listan
 			
 		google.maps.event.addListener(marker, 'click', function() {
        		infowindow.setContent(this.html);
        		infowindow.open(map,this);
 			});
 	}
+}
+
+function openWindow(id) {			//öppna infowindow från listan
+	google.maps.event.trigger(allMarkers[id], 'click');
 }
 
 function getCategory(no) {
