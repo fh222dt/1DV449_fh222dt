@@ -31,7 +31,7 @@ var allMarkers = [];
 			//presentera lista
 			for (var i = 0; i < maxMessages; i++) {
 				var no = i+1;
-				//$("<p>" +no+". "+ messages[i].title + "</p>" + "<small>"+messages[i].description+"</small>").appendTo("#list");
+				
 				$("<a href='#' onclick='openWindow("+i+");'>"+no+". "+messages[i].title + "</a></br>").appendTo("#list");
 			} 
 
@@ -40,12 +40,11 @@ var allMarkers = [];
 
 			//kategorier
 			$("#all-mess").click(function() {
-				console.log("alla");
+				allMarkers.length = 0;	//töm arrayen för att öppna window
   				CreateMarkers(messages);
 			});
 
 			$("#road").click(function() {
-				console.log("väg");
 				var road = [];
 				for (var i = 0; i < maxMessages; i++) {
 					if(messages[i].category === 0) {
@@ -53,7 +52,6 @@ var allMarkers = [];
 					}
 				}
   				CreateMarkers(road);
-  				console.log(road);
 			});
 
 			$("#public").click(function() {
