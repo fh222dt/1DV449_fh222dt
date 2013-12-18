@@ -118,7 +118,8 @@ function CreateMarkers(messages){
 	 	 	position: pos,
 	 	 	map: map,
 	 	 	title: messages[i].title,
-	 	 	html: content
+	 	 	html: content,
+	 	 	icon: priority(messages[i])
 	 	});
 			
 		google.maps.event.addListener(marker, 'click', function() {
@@ -171,4 +172,26 @@ function getDate(jsonDate) {
 	date = year+'-'+month+'-'+day+', '+hour+':'+mins;
 
 	return date;
+}
+
+function priority(marker) {
+	var color;
+	switch (marker.priority) {
+		case 1:
+			color = "1.png";
+			break;
+		case 2:
+			color = "2.png";
+			break;
+		case 3:
+			color = "3.png";
+			break;
+		case 4:
+			color = "4.png";
+			break;
+		case 5:
+			color = "5.png";
+			break;
+	} 
+	return color;
 }
