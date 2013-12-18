@@ -2,8 +2,9 @@ body {
 	margin: 15px;
 }
 
-#all-messages {
-	
+h1 {
+	font-family: 'Alfa Slab One', cursive;
+	color: #f7941d;
 }
 
 #map-canvas { 

@@ -32,16 +32,16 @@ var allMarkers = [];
 			for (var i = 0; i < maxMessages; i++) {
 				var no = i+1;
 				
-				$("<a href='#' onclick='openWindow("+i+");'>"+no+". "+messages[i].title + "</a></br>").appendTo("#list");
+				$("<a href='#' onclick='FT.openWindow("+i+");'>"+no+". "+messages[i].title + "</a></br>").appendTo("#list");
 			} 
 
 			//placera ut markers
-			CreateMarkers(messages);
+			FT.CreateMarkers(messages);
 
 			//kategorier
 			$("#all-mess").click(function() {
 				allMarkers.length = 0;	//töm arrayen för att öppna window
-  				CreateMarkers(messages);
+  				FT.CreateMarkers(messages);
 			});
 
 			$("#road").click(function() {
@@ -51,7 +51,7 @@ var allMarkers = [];
 						road.push(messages[i]);
 					}
 				}
-  				CreateMarkers(road);
+  				FT.CreateMarkers(road);
 			});
 
 			$("#public").click(function() {
@@ -61,7 +61,7 @@ var allMarkers = [];
 						pTrans.push(messages[i]);
 					}
 				}
-  				CreateMarkers(pTrans);
+  				FT.CreateMarkers(pTrans);
 			});
 
 			$("#planed").click(function() {
@@ -71,7 +71,7 @@ var allMarkers = [];
 						planed.push(messages[i]);
 					}
 				}
-  				CreateMarkers(planed);
+  				FT.CreateMarkers(planed);
 			});
 
 			$("#other").click(function() {
@@ -81,13 +81,12 @@ var allMarkers = [];
 						other.push(messages[i]);
 					}
 				}
-  				CreateMarkers(other);
+  				FT.CreateMarkers(other);
 			});			
 		});
 	
 })();
-
-function CreateMarkers(messages){
+FT.CreateMarkers = function (messages) {
 	var infowindow = new google.maps.InfoWindow();
 	var maxMessages = messages.length;
 
@@ -102,15 +101,15 @@ function CreateMarkers(messages){
 	 	
 
 	 	var content = '<div id=' + 'infowindow' + '>' +
-	 				'<h1>' + messages[i].title + '</h1>' +
-	 	 			'<p> Datum: ' + getDate(messages[i].createddate) + '</p>' +
+	 				'<h2>' + messages[i].title + '</h2>' +
+	 	 			'<p> Datum: ' + FT.formatDate(messages[i].createddate) + '</p>' +
 	 	 			'<p> Beskrivning: ' + messages[i].description + '</p>' +
-	 	 			'<p> Kategori: ' + getCategory(messages[i].category) + '</p>' +
+	 	 			'<p> Kategori: ' + FT.getCategory(messages[i].category) + '</p>' +
 	 	 			'</div>';
 
-		 var info = new google.maps.InfoWindow({
-		 	 content: content
-		 	});
+		var info = new google.maps.InfoWindow({
+	 		content: content
+		});
 
 		var pos = new google.maps.LatLng(messages[i].latitude,messages[i].longitude);			 	 
 
@@ -119,7 +118,7 @@ function CreateMarkers(messages){
 	 	 	map: map,
 	 	 	title: messages[i].title,
 	 	 	html: content,
-	 	 	icon: priority(messages[i])
+	 	 	icon: FT.priority(messages[i])
 	 	});
 
 	 	allMarkers.push(marker);	//array som anv för att kunna öppna medd. från listan
@@ -131,11 +130,11 @@ function CreateMarkers(messages){
 	}
 }
 
-function openWindow(id) {			//öppna infowindow från listan
+FT.openWindow = function(id) {			//öppna infowindow från listan
 	google.maps.event.trigger(allMarkers[id], 'click');
 }
 
-function getCategory(no) {
+FT.getCategory = function(no) {
 	var category;
 	switch (no) {
 		case 0:
@@ -154,11 +153,13 @@ function getCategory(no) {
 	return category;
 }
 
-function getDate(jsonDate) {
+FT.formatDate = function(jsonDate) {
 	var date = new Date(parseInt(jsonDate.substr(6)));
 	
 	var year = date.getFullYear();
+
 	var month = date.getMonth();
+	month++;
 	if (month < 10) {
 		month = "0"+month;
 	}
@@ -180,7 +181,7 @@ function getDate(jsonDate) {
 	return date;
 }
 
-function priority(marker) {
+FT.priority = function(marker) {
 	var color;
 	switch (marker.priority) {
 		case 1:
