@@ -9,7 +9,8 @@ function getMessage($nr) {
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOEception $e) {
-		die("Del -> " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		die("Something went wrong, please try again later.");
 	}
 	
 	$q = "SELECT * FROM messages WHERE serial = '$nr'";
@@ -22,7 +23,8 @@ function getMessage($nr) {
 		$result = $stm->fetchAll();
 	}
 	catch(PDOException $e) {
-		echo("Error creating query: " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		echo("Error creating query");
 		return false;
 	}
 	
@@ -41,7 +43,8 @@ function getMessageIdForProducer($pid) {
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOEception $e) {
-		die("Del -> " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		die("Something went wrong, please try again later.");
 	}
 	
 	$q = "SELECT serial FROM messages WHERE pid = $pid";
@@ -54,7 +57,8 @@ function getMessageIdForProducer($pid) {
 		$result = $stm->fetchAll();
 	}
 	catch(PDOException $e) {
-		echo("Error creating query: " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		echo("Error creating query");
 		return false;
 	}
 	
@@ -72,7 +76,8 @@ function getProducer($id) {
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOEception $e) {
-		die("Del -> " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		die("Something went wrong, please try again later.");
 	}
 	
 	$q = "SELECT * FROM Producers WHERE producerID = '$id'";
@@ -85,7 +90,8 @@ function getProducer($id) {
 		$result = $stm->fetchAll();
 	}
 	catch(PDOException $e) {
-		echo("Error creating query: " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		echo("Error creating query");
 		return false;
 	}
 	
@@ -103,7 +109,8 @@ function getProducers() {
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOEception $e) {
-		die("Del -> " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		die("Something went wrong, please try again later.");
 	}
 	
 	$q = "SELECT * FROM Producers";
@@ -116,7 +123,8 @@ function getProducers() {
 		$result = $stm->fetchAll();
 	}
 	catch(PDOException $e) {
-		echo("Error creating query: " .$e->getMessage());
+		error_log($e->getMessage(),0);
+		echo("Error creating query");
 		return false;
 	}
 	
