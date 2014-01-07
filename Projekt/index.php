@@ -27,14 +27,14 @@
         id: 124,
         key: "Q1GxWcxWOrKY"
       };*/
-      var request = $.ajax({
+      /*var request = $.ajax({
           url: "proxy.php",
           data: {requrl: "http://oppnaapi.cloudapp.net/api/emissions?$filter=Kommunnamn%20eq%20'Vilhelmina'&$format=json" }
           //dataType: 'json'
       });
       request.done(function(msg) {
           $('body').append(msg);
-      });
+      });*/
     </script>
 
   </body>
@@ -42,6 +42,6 @@
 
 <?php
 
-include('Caching.php');
-$caching = new Caching("cache/blekinge.php", "http://oppnaapi.cloudapp.net/api/emissions?$format=json&$filter=Lannamn%20eq%20'Blekinge%20l%C3%A4n'");
+require_once('Caching.php');
+$caching = new Caching("cache/blekinge.json", "http://oppnaapi.cloudapp.net/api/emissions?\$format=json&\$filter=Lannamn%20eq%20'Blekinge%20l%C3%A4n'");
 ?>
