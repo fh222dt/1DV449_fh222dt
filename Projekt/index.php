@@ -13,17 +13,20 @@
   </head>
   <body>
     <div class="container">
-      <h1>Miljöutsläpp</h1>
+      <header>
+        <h1>Miljöutsläpp</h1>
+      </header>
       <aside>
         <h2>Vad vill du se på kartan?</h2>
-        <p>Alla utsläpp i min komun:</p>
-        <select id="districts" class="form-control input-sm">
-          <option>1</option>
-        </select>
+        <p>Alla utsläpp i en kommun</p>
+        <select id="districts" class="form-control input-sm"></select>
+        <p>Alla utsläpp i ett län</p>
+        <select id="states" class="form-control input-sm"></select>
         <p>Alla utsläpp till luft</p>
         <p>Alla utsläpp till vatten</p>
         <p>Alla utsläpp till reningsverk</p>
         <p>Utsläpp per användningsområde:</p>
+        <select id="usage" class="form-control input-sm"></select>
       </aside>
       <div id="map-canvas"></div>
       <footer>
