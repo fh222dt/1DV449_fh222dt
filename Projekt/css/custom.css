@@ -1,0 +1,22 @@
+h1, h2 {
+	font-family: 'Montserrat', sans-serif;
+}
+aside {
+	float: left;
+}
+
+footer {
+	clear: left;
+	font-style: italic;
+	font-size: small;
+	text-align: center;
+}
+#container {
+	width: 1200px;
+}
+
+#map-canvas { 
+	height: 550px;
+	width: 750px;
+	float: left;
+}
