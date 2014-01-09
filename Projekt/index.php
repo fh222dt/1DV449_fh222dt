@@ -6,22 +6,23 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat|Special+Elite|Kranky|Playball' rel='stylesheet' type='text/css'>
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJs5Lz6qV0SnxxE_tEumFq4CaB54g-S0&sensor=false">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJs5Lz6qV0SnxxE_tEumFq4CaB54g-S0&sensor=true">
     </script>
   </head>
   <body>
-    <div class="container">
+    <div >
       <header>
         <h1>Miljöutsläpp</h1>
+        <h2>-vilka utsläpp sker i din närhet?</h2>
       </header>
       <aside>
         <h2>Vad vill du se på kartan?</h2>
         <p>Alla utsläpp i en kommun</p>
         <select id="districts" class="form-control input-sm"></select>
-        <p>Alla utsläpp i ett län</p>
-        <select id="states" class="form-control input-sm"></select>
+        
+        <select id="states" class="form-control input-sm"><option>Alla utsläpp i ett län</option></select>
         <p>Alla utsläpp till luft</p>
         <p>Alla utsläpp till vatten</p>
         <p>Alla utsläpp till reningsverk</p>
