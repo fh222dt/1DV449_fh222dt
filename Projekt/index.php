@@ -37,8 +37,9 @@
       </footer>
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="js/map.js"></script>
+    <script src="js/geolocation.js"></script>    
     <script src="js/ui.js"></script>
+    <script src="js/map.js"></script>
     
 
   </body>

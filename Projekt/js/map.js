@@ -1,135 +1,8 @@
 var FT = FT || {};
-(FT.start = function () {
-	
-	$("#states").change(function() {
-		var state = $("#states option:selected" ).text();
-
-		$.ajax({
-			dataType: "json",
-			url: "cache/"+state+".json"
-		}).done(function(json){
-			FT.CreateMarkers(json);
-		});
-	});
 
 
-
-
-
-
-	//stila kartan
-	/*var styles = [
-		{
-			"featureType":"poi",
-			"stylers":[
-				{
-					"visibility":"simplified"
-				}
-			]
-		},
-		{
-			"featureType":"road",
-			"elementType":"labels",
-			"stylers":[
-				{
-					"visibility":"simplified"
-				}
-			]
-		},
-		{
-			"featureType":"water",
-			"stylers":[
-				{
-					"visibility":"simplified"
-				}
-			]
-		},
-		{
-			"featureType":"transit",
-			"stylers":[
-				{
-					"visibility":"simplified"
-				}
-			]
-		},
-		{
-			"featureType":"landscape",
-			"stylers":[
-				{
-					"visibility":"simplified"
-				}
-			]
-		},
-		{
-			"featureType":"road.highway",
-			"stylers":[
-				{
-					"visibility":"off"
-				}
-			]
-		},
-		{
-			"featureType":"road.local",
-			"stylers":[
-				{
-					"visibility":"on"
-				}
-			]
-		},
-		{
-			"featureType":"road.highway",
-			"elementType":"geometry",
-			"stylers":[
-				{
-					"visibility":"on"
-				}
-			]
-		},
-		{
-			"featureType":"water",
-			"stylers":[
-				{
-					"color":"#84afa3"
-				},
-				{
-					"lightness":52
-				}
-			]
-		},
-		{
-			"stylers":[
-				{
-					"saturation":-17
-				},
-				{
-					"gamma":0.36
-				}
-			]
-		},
-		{
-			"featureType":"transit.line",
-			"elementType":"geometry",
-			"stylers":[
-				{
-					"color":"#3f518c"
-				}
-			]
-		}];	
-
-	var mapOptions = {
-    zoom: 5,
-    center: new google.maps.LatLng(59.32893, 18.06491),
-  	};
-
-  	var map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-	
-	map.setOptions({styles: styles});*/
-	
-})();
-
-FT.CreateMarkers = function (polutions) {
-	console.log(polutions);
+FT.CreateMarkers = function (polutions, pos) {
+	console.log(pos);
 	var infowindow = new google.maps.InfoWindow();
 	var styles = [
 		{
@@ -230,7 +103,7 @@ FT.CreateMarkers = function (polutions) {
 		}];	
 
 	var mapOptions = {
-			          center: new google.maps.LatLng(59.32893, 18.06491),
+			          center: new google.maps.LatLng(pos[0], pos[1]),
 			          zoom: 5,
 			          styles: styles
 			        };
@@ -269,6 +142,28 @@ FT.CreateMarkers = function (polutions) {
 			});
 	}
 }
+
+(FT.startMap = function () {
+
+	var location = FT.findUser();
+	console.log(location);
+	FT.CreateMarkers(null, location);
+	
+	$("#states").change(function() {
+		var state = $("#states option:selected" ).text();
+
+		$.ajax({
+			dataType: "json",
+			url: "cache/"+state+".json"
+		}).done(function(json){
+			var location = FT.findUser();
+			console.log(location);
+			//var location = new google.maps.LatLng(59.32893, 18.06491);
+			FT.CreateMarkers(json, location);
+		});
+	});
+
+})();
 
 FT.fixCoordinates = function(coordinate){
 	var fixed = coordinate.replace(/,/g, ".");
