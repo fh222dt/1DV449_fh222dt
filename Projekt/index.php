@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+
+<?php
+require_once('getemissions.php');
+$emissions = new getemissions();
+$emissions->doCache();
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -45,8 +53,3 @@
   </body>
   </html>
 
-<?php
-
-require_once('Caching.php');
-$caching = new Caching("cache/blekinge.json", "http://oppnaapi.cloudapp.net/api/emissions?\$format=json&\$filter=Lannamn%20eq%20'Blekinge%20l%C3%A4n'");
-?>
