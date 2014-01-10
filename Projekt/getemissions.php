@@ -23,7 +23,7 @@ class getEmissions {
 		$caching = new Caching("cache/reningsverk.json", "http://oppnaapi.cloudapp.net/api/emissions?\$format=json&\$filter=Metod_BehArv%20ne%20'NULL'%20and%20Rapporteringsar%20eq%202011");
 
 		for ($i=1; $i<10 ; $i++) { 
-			$caching = new Caching("cache/".$i.".json", "http://oppnaapi.cloudapp.net/api/emissions?\$format=json&\$filter=PrtrHuvudKod%20eq%20'".$i."'%20and%20Rapporteringsar%20eq%202011");
+			$caching = new Caching("cache/".$i.".json", "http://oppnaapi.cloudapp.net/api/emissions?\$format=json&\$filter=PrtrHuvudKod%20eq%20'".$i.".'%20and%20Rapporteringsar%20eq%202011");
 		}
 	}
 

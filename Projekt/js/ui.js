@@ -73,7 +73,16 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 		});
 	});
 	//väljer anv.omr.
-	
+	$("#usage").change(function() {
+		var usage = $("#usage option:selected").val();
+		//console.log(usage);
+		$.ajax({
+			dataType: "json",
+			url: "cache/"+usage+".json"
+		}).done(function(json){
+			FT.CreateMarkers(json);
+		});
+	});
 
 	//inget valt
 	$.ajax({
@@ -132,8 +141,8 @@ FT.dropdowns = function () {
 	"Trä och pappersindustri","Jordbruk","Livsmedelsindustri","Övriga"];
 	//ange i listan för anv. omr
 	for (var i = 0; i < usage.length; i++) {
-		i+1;
-		$("<option>"+usage[i] + "</option>").appendTo("#usage");
+		var j = i+1;
+		$("<option value="+j+">"+usage[i] + "</option>").appendTo("#usage");
 	} 
 }
 
