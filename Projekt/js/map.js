@@ -1,8 +1,40 @@
 var FT = FT || {};
 
+FT.startMap = function () {
 
-FT.CreateMarkers = function (polutions, pos) {
-	console.log(pos);
+	//var location = FT.findUser();
+	//console.log(location);
+	//FT.CreateMarkers(null, location);
+
+	FT.userMapChoice();
+
+}
+
+FT.findUser = function() {
+
+	function success(position){
+		/*var latlng = [position.coords.latitude, position.coords.longitude];
+		console.log(latlng+"success");
+		return latlng;*/
+		new google.maps.LatLng(position.coords.latitude, position.coords.longitud);
+	};
+
+	function error(){
+		//hämta via ip
+
+		//om inget funkar
+		var latlng = [59.32893, 28.06491];
+		console.log(latlng+"error");
+		return latlng;
+
+	};
+
+	navigator.geolocation.getCurrentPosition(success, error);
+}
+
+
+FT.CreateMarkers = function (polutions) {
+	//var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	var infowindow = new google.maps.InfoWindow();
 	var styles = [
 		{
@@ -103,7 +135,8 @@ FT.CreateMarkers = function (polutions, pos) {
 		}];	
 
 	var mapOptions = {
-			          center: new google.maps.LatLng(pos[0], pos[1]),
+			          //center: new google.maps.LatLng(pos[0], pos[1]),
+			          center: new google.maps.LatLng(59.32893, 28.06491),
 			          zoom: 5,
 			          styles: styles
 			        };
@@ -143,105 +176,9 @@ FT.CreateMarkers = function (polutions, pos) {
 	}
 }
 
-(FT.startMap = function () {
-
-	var location = FT.findUser();
-	console.log(location);
-	FT.CreateMarkers(null, location);
-	
-	$("#states").change(function() {
-		var state = $("#states option:selected" ).text();
-
-		$.ajax({
-			dataType: "json",
-			url: "cache/"+state+".json"
-		}).done(function(json){
-			var location = FT.findUser();
-			console.log(location);
-			//var location = new google.maps.LatLng(59.32893, 18.06491);
-			FT.CreateMarkers(json, location);
-		});
-	});
-
-})();
-
 FT.fixCoordinates = function(coordinate){
 	var fixed = coordinate.replace(/,/g, ".");
 	return(fixed);
 }
 
-FT.openWindow = function(id) {			//öppna infowindow från listan
-	google.maps.event.trigger(allMarkers[id], 'click');
-}
-
-FT.getCategory = function(no) {
-	var category;
-	switch (no) {
-		case 0:
-			category = "Vägtarfik";
-			break;
-		case 1:
-			category = "Kollektivtrafik";
-			break;
-		case 2:
-			category = "Planerad störning";
-			break;
-		case 3:
-			category = "Övrigt";
-			break;
-	} 
-	return category;
-}
-
-FT.formatDate = function(jsonDate) {
-	var date = new Date(parseInt(jsonDate.substr(6)));
-	
-	var year = date.getFullYear();
-
-	var month = date.getMonth();
-	month++;
-	if (month < 10) {
-		month = "0"+month;
-	}
-	var day = date.getDate();
-	if (day < 10) {
-		day = "0"+day;
-	}
-	var hour = date.getHours();
-	if (hour < 10) {
-		hour = "0"+hour;
-	}
-	var mins = date.getMinutes();
-	if (mins < 10) {
-		mins = "0"+mins;
-	}
-
-	date = year+'-'+month+'-'+day+', '+hour+':'+mins;
-
-	return date;
-}
-
-FT.priority = function(marker) {
-	var color;
-	switch (marker.priority) {
-		case 1:
-			color = "1.png";
-			break;
-		case 2:
-			color = "2.png";
-			break;
-		case 3:
-			color = "3.png";
-			break;
-		case 4:
-			color = "4.png";
-			break;
-		case 5:
-			color = "5.png";
-			break;
-		default:
-			color = "3.png";
-			break;
-	} 
-	return color;
-}
+window.onload = FT.startMap;

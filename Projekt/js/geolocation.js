@@ -10,23 +10,3 @@ var FT = FT || {};
 
 })();*/
 
-FT.findUser = function() {	
-
-	function success(position){
-		var latlng = [position.coords.latitude, position.coords.longitude];
-		console.log(latlng);
-		return latlng;
-	};
-
-	function error(){
-		//hämta via ip
-
-		//om inget funkar
-		var latlng = [59.32893, 28.06491];
-		console.log(latlng);
-		return latlng;
-
-	};
-
-	navigator.geolocation.getCurrentPosition(success, error);
-}

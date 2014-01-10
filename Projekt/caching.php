@@ -31,7 +31,7 @@ class Caching {
 
 	function needsRenewal() {
 		//tidsintervall som cachningen ska ske på
-		$cachetime = (60); //(60*60*24*30); //30 dagar 				Gör till medl var.
+		$cachetime = (60*60); //(60*60*24*30); //30 dagar 				Gör till medl var.
 
 		$lastSave = filemtime($this->filepath) + $cachetime;
 
@@ -60,7 +60,7 @@ class Caching {
 	function saveArray($json) {
 		//ta bort info som ej behövs
 
-		//spara json t en fil 				ändra t databas??
+		//spara json t en fil 
 		file_put_contents($this->filepath, $json);
 	}
 }

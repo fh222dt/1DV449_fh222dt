@@ -27,10 +27,11 @@ $emissions->doCache();
       </header>
       <aside>
         <h2>Vad vill du se på kartan?</h2>
-        <p>Alla utsläpp i en kommun</p>
+        <select id="states" class="form-control input-sm"><option>Alla utsläpp i ett län</option></select>
+        <p>Välj kommun för länet</p>
         <select id="districts" class="form-control input-sm"></select>
         
-        <select id="states" class="form-control input-sm"><option>Alla utsläpp i ett län</option></select>
+        
         <p>Alla utsläpp till luft</p>
         <p>Alla utsläpp till vatten</p>
         <p>Alla utsläpp till reningsverk</p>
@@ -45,7 +46,7 @@ $emissions->doCache();
       </footer>
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="js/geolocation.js"></script>    
+        
     <script src="js/ui.js"></script>
     <script src="js/map.js"></script>
     
