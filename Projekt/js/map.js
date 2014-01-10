@@ -181,4 +181,4 @@ FT.fixCoordinates = function(coordinate){
 	return(fixed);
 }
 
-window.onload = FT.startMap;
+window.onload = FT.startMap();

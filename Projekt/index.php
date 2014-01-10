@@ -3,7 +3,8 @@
 <?php
 require_once('getemissions.php');
 $emissions = new getemissions();
-$emissions->doCache();
+$emissions->getStates();
+$emissions->getCategories();
 
 ?>
 
@@ -28,13 +29,12 @@ $emissions->doCache();
       <aside>
         <h2>Vad vill du se på kartan?</h2>
         <select id="states" class="form-control input-sm"><option>Alla utsläpp i ett län</option></select>
-        <p>Välj kommun för länet</p>
-        <select id="districts" class="form-control input-sm"></select>
+        <select id="districts" class="form-control input-sm"><option>Välj kommun för länet</option></select>
         
         
-        <p>Alla utsläpp till luft</p>
-        <p>Alla utsläpp till vatten</p>
-        <p>Alla utsläpp till reningsverk</p>
+        <p id="air">Alla utsläpp till luft</p>
+        <p id="water">Alla utsläpp till vatten</p>
+        <p id="sewage">Alla utsläpp till reningsverk</p>
         <p>Utsläpp per användningsområde:</p>
         <select id="usage" class="form-control input-sm"></select>
       </aside>
