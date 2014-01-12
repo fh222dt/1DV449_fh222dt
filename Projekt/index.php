@@ -11,8 +11,9 @@ $emissions->getCategories();
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Utsläppskarta</title>
+    <title>Miljöutsläpp på karta -vad släpps ut i din närhet?</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link type="image/x-icon" href="favicon.ico" rel="shortcut icon">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <link href='http://fonts.googleapis.com/css?family=Montserrat|Special+Elite|Kranky|Playball' rel='stylesheet' type='text/css'>
