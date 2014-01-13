@@ -87,6 +87,16 @@ FT.getComment = function(polluter){
 	}
 }
 
+FT.getAllSubstances = function(pollutions){
+	for (var i = 0; i < pollutions.length; i++) {
+		if(pollutions.MiljorapportId) {
+			
+		}
+	}
+
+	
+}
+
 FT.CreateMarkers = function (pollutions) {
 	//var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	var infowindow = new google.maps.InfoWindow();
@@ -218,8 +228,8 @@ FT.CreateMarkers = function (pollutions) {
 	 	 	position: pos,
 	 	 	map: map,
 	 	 	title: pollutions[i].Anlaggningsnamn,
-	 	 	html: content
-	 	 	//icon: FT.priority(messages[i])
+	 	 	html: content,
+	 	 	icon: "marker.png"
 	 	});
 
 	 	//allMarkers.push(marker);	//array som anv för att kunna öppna medd. från listan

@@ -9,22 +9,26 @@ class Caching {
 			$this->filepath = $filepath;
 			$this->apiURI = $apiURI;
 
-			//cachen behöver uppdateras
-			if($this->needsRenewal()) {
+			try {
+				//cachen behöver uppdateras
+				if($this->needsRenewal()) {
 
-				$json = $this->getCurl($apiURI);
+					$json = $this->getCurl($apiURI);
 
-				$this->saveArray($json);
+					$this->saveArray($json);
+				}
+
+				//cachen behöver inte uppdateras
+				else {
+					return true;
+				}
 			}
-
-			//cachen behöver inte uppdateras
-			else {
-				return true;
+			catch (Exception $e) {
+				echo "<strong>Just nu har vi inte kontakt med våra källor för data. Du visas data som är sparad från tidigare</strong>";
 			}
+			
 		}
-
-		else {
-			echo "Urls saknas för att kunna cacha!";
+		else {			
 			return false;
 		}
 	}
@@ -58,8 +62,6 @@ class Caching {
 	}
 
 	function saveArray($json) {
-		//ta bort info som ej behövs
-
 		//spara json t en fil 
 		file_put_contents($this->filepath, $json);
 	}

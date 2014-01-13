@@ -51,3 +51,7 @@ footer {
 	width: 750px;
 	float: left;
 }
+
+.error {
+	color: #D9442F;
+}
