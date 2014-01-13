@@ -31,7 +31,7 @@ class Caching {
 
 	function needsRenewal() {
 		//tidsintervall som cachningen ska ske på
-		$cachetime = (60*60); //(60*60*24*30); //30 dagar 				Gör till medl var.
+		$cachetime = (60*60*24*30); //30 dagar 
 
 		$lastSave = filemtime($this->filepath) + $cachetime;
 

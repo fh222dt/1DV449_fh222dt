@@ -190,7 +190,7 @@ FT.CreateMarkers = function (pollutions) {
 
 	var mapOptions = {
 			          //center: new google.maps.LatLng(pos[0], pos[1]),
-			          center: new google.maps.LatLng(59.32893, 17.06491),
+			          center: new google.maps.LatLng(62.32893, 17.06491),
 			          zoom: 5,
 			          styles: styles
 			        };

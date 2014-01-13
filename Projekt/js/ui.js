@@ -37,6 +37,7 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 	$("#states").change(function() {
 		var state = $("#states option:selected" ).text();
 		var fixedState = FT.getName(state);
+		$("#removeme").remove();
 		$.ajax({
 			dataType: "json",
 			url: "cache/"+fixedState+".json"
