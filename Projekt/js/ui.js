@@ -9,6 +9,20 @@ FT.getName = function (name){
 	return(fixed);
 }
 
+FT.sortProducers = function(json){
+	var sorted = [];
+
+	for (var i=0; i<json.length; i++) {
+	    var key = json[i].MiljorapportId;
+	    if (key in sorted)
+	        sorted[key].push(json[i]);
+	    else
+	        sorted[key] = [json[i]];
+	}
+	//console.log(sorted);
+	return (sorted);
+}
+
 
 FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare?????
 	//väljer kommun
@@ -36,6 +50,7 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 						districts.push(json[i]);
 					}
 				}
+				
 				FT.CreateMarkers(districts);
 			}			
 		});
@@ -55,6 +70,7 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
 			}
 			else {
+
 				FT.CreateMarkers(json);
 			}
 		});

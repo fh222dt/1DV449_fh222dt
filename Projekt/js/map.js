@@ -118,28 +118,6 @@ FT.startMap = function () {
 	}, 5000);
 }
 
-FT.findUser = function() {
-
-	function success(position){
-		/*var latlng = [position.coords.latitude, position.coords.longitude];
-		console.log(latlng+"success");
-		return latlng;*/
-		new google.maps.LatLng(position.coords.latitude, position.coords.longitud);
-	};
-
-	function error(){
-		//hämta via ip
-
-		//om inget funkar
-		var latlng = [59.32893, 28.06491];
-		console.log(latlng+"error");
-		return latlng;
-
-	};
-
-	navigator.geolocation.getCurrentPosition(success, error);
-}
-
 FT.getAmount = function(polluter){
 	if(polluter.Varde_BehArv != null){
 		return polluter.Varde_BehArv +" kg/år";
@@ -288,7 +266,7 @@ FT.translateSubstances = function(polluter) {
 }
 
 FT.CreateMarkers = function (pollutions) {
-	//var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
 	var infowindow = new google.maps.InfoWindow();
 	var styles = [
 		{

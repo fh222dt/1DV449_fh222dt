@@ -40,7 +40,9 @@ footer {
 	font-style: italic;
 	font-size: small;
 	text-align: center;
-	width: 70%;
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
 }
 #container {
 	width: 1200px;
@@ -51,6 +53,11 @@ footer {
 	height: 550px;
 	width: 750px;
 	float: left;
+	margin-bottom: 10px;
+}
+
+#infowindow {
+	width: 250px;
 }
 
 #start {
