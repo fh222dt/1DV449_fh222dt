@@ -5,6 +5,7 @@ FT.getName = function (name){
 	var fixed = name.replace(/å/ig, "a");
 	var fixed = fixed.replace(/ä/ig, "a");
 	var fixed = fixed.replace(/ö/ig, "o");
+	var fixed = fixed.replace(/ /ig, "");
 	return(fixed);
 }
 
@@ -121,20 +122,6 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 				FT.CreateMarkers(json);
 			}
 		});
-	});
-
-	//inget valt
-	$.ajax({
-		dataType: "json",
-		url: "cache/Hallands.json"
-	}).done(function(json){
-		if(json.length === 0){
-				$("#map-canvas").before("<strong class='error'>Just nu har vi inte kontakt med våra "+ 
-					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
-			}
-		else{
-			FT.CreateMarkers(json);
-		}
 	});
 }
 

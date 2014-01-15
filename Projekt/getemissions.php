@@ -5,7 +5,7 @@ class getEmissions {
 	function getStates(){
 		$states = [1=>"Blekinge", 2=>"Dalarnas", 3=>"Gotlands", 4=>"Gävleborgs", 5=>"Hallands", 6=>"Jämtlands", 7=>"Jönköpings", 
 					8=>"Kalmar", 9=>"Kronobergs", 10=>"Norrbottens", 11=>"Skåne", 12=>"Stockholms", 13=>"Södermanlands", 14=>"Uppsala", 
-					15=>"Värmlands", 16=>"Västerbottens", 17=>"Västernorrlands", 18=>"Västmanlands", 19=>"Västra Götalands", 20=>"Örebro", 
+					15=>"Värmlands", 16=>"Västerbottens", 17=>"Västernorrlands", 18=>"Västmanlands", 19=>"Västra%20Götalands", 20=>"Örebro", 
 					21=>"Östergötlands"];
 		//hämta länsvis			
 		foreach ($states as $state){
@@ -28,8 +28,8 @@ class getEmissions {
 	}
 
 	function fileName($state){
-		$search = array('å','ä','ö','Å','Ä', 'Ö');
-		$replace = array('a','a','o', 'a', 'a', 'o');
+		$search = array('å','ä','ö','Å','Ä', 'Ö', '%20');
+		$replace = array('a','a','o', 'a', 'a', 'o', '');
 		$state = str_replace($search, $replace, $state);
 		return $state;
 	}

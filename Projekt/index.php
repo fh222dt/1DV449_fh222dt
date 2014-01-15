@@ -16,6 +16,7 @@ $emissions->getCategories();
     <link type="image/x-icon" href="favicon.ico" rel="shortcut icon">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link href='http://fonts.googleapis.com/css?family=Montserrat|Special+Elite|Kranky|Playball' rel='stylesheet' type='text/css'>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJs5Lz6qV0SnxxE_tEumFq4CaB54g-S0&sensor=true">
@@ -39,6 +40,7 @@ $emissions->getCategories();
         
         <select id="usage" class="form-control input-sm"><option>Utsläpp per användningsområde</option></select>
       </aside>
+      <div id="start" class="animated flipInY"><p>Välj i menyn vad du vill se för utsläpp</p></div>
       <div id="map-canvas"></div>
       <footer>
         Data för utsläpp är hämtat från Naturvårdsverket. Alla utsläpp som visas kommer från

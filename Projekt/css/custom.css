@@ -47,9 +47,27 @@ footer {
 }
 
 #map-canvas { 
+	/*position: relative;*/
 	height: 550px;
 	width: 750px;
 	float: left;
+}
+
+#start {
+	position: absolute;
+	width: 200px;
+	height: 50px;
+	background: #D3CBB8;
+	border: 1px solid #C5BDAC;
+	margin-left: 500px;
+	margin-top: 150px;
+	z-index: 99;
+	padding: 4px 10px 0px 10px;
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
 }
 
 .error {

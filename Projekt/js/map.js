@@ -1,13 +1,121 @@
 var FT = FT || {};
 
 FT.startMap = function () {
-
-	//var location = FT.findUser();
-	//console.log(location);
-	//FT.CreateMarkers(null, location);
-
+	//starta menyn
 	FT.userMapChoice();
 
+	//starta en tom karta
+	var styles = [
+		{
+			"featureType":"poi",
+			"stylers":[
+				{
+					"visibility":"simplified"
+				}
+			]
+		},
+		{
+			"featureType":"road",
+			"elementType":"labels",
+			"stylers":[
+				{
+					"visibility":"simplified"
+				}
+			]
+		},
+		{
+			"featureType":"water",
+			"stylers":[
+				{
+					"visibility":"simplified"
+				}
+			]
+		},
+		{
+			"featureType":"transit",
+			"stylers":[
+				{
+					"visibility":"simplified"
+				}
+			]
+		},
+		{
+			"featureType":"landscape",
+			"stylers":[
+				{
+					"visibility":"simplified"
+				}
+			]
+		},
+		{
+			"featureType":"road.highway",
+			"stylers":[
+				{
+					"visibility":"off"
+				}
+			]
+		},
+		{
+			"featureType":"road.local",
+			"stylers":[
+				{
+					"visibility":"on"
+				}
+			]
+		},
+		{
+			"featureType":"road.highway",
+			"elementType":"geometry",
+			"stylers":[
+				{
+					"visibility":"on"
+				}
+			]
+		},
+		{
+			"featureType":"water",
+			"stylers":[
+				{
+					"color":"#84afa3"
+				},
+				{
+					"lightness":52
+				}
+			]
+		},
+		{
+			"stylers":[
+				{
+					"saturation":-17
+				},
+				{
+					"gamma":0.36
+				}
+			]
+		},
+		{
+			"featureType":"transit.line",
+			"elementType":"geometry",
+			"stylers":[
+				{
+					"color":"#3f518c"
+				}
+			]
+		}];	
+    
+    var mapOptions = {
+			          center: new google.maps.LatLng(62.32893, 17.06491),
+			          zoom: 5,
+			          styles: styles
+			        };
+ 
+   	var map = new google.maps.Map(document.getElementById('map-canvas'),
+       mapOptions);
+
+   	//dölj starthjälpen efter 5 sek
+   	setTimeout(function() {
+    	$("#start").addClass("flipOutY");
+	}, 5000);
 }
 
 FT.findUser = function() {
@@ -102,14 +210,14 @@ FT.translateSubstances = function(polluter) {
 		19: ['Arsenik och arsenikföreningar (As)', 'http://sv.wikipedia.org/wiki/Arsenik'], 
 		43: ['Bensen', 'http://sv.wikipedia.org/wiki/Bensen'],
 		63: ['Biokemisk syreförbrukning', ''],
-		91: ['Kadmium (Cd)',' http://sv.wikipedia.org/wiki/Kadmium'],
+		91: ['Kadmium (Cd)', 'http://sv.wikipedia.org/wiki/Kadmium'],
 		101: ['Klorfluorkarboner (CFC)', 'http://sv.wikipedia.org/wiki/Klorfluorkarboner'],
 		109: ['Metan (CH4)', 'http://sv.wikipedia.org/wiki/Metan'],
 		114: ['Klor', 'http://sv.wikipedia.org/wiki/Klor'],
-		119: ['Klorider', '(Cl-tot) http://sv.wikipedia.org/wiki/Klorid'],
+		119: ['Klorider (Cl-tot)', 'http://sv.wikipedia.org/wiki/Klorid'],
 		125: ['Cyanider (CN-tot)', 'http://sv.wikipedia.org/wiki/Cyanider'],
 		128: ['Koldioxid (CO2)', 'http://sv.wikipedia.org/wiki/Koldioxid'],
-		129: ['Kemisk syreförbrukning, COD-Cr'],
+		129: ['Kemisk syreförbrukning, COD-Cr', ''],
 		133: ['Krom (Cr)', 'http://sv.wikipedia.org/wiki/Krom'],
 		142: ['Koppar (Cu)', 'http://sv.wikipedia.org/wiki/Koppar'],
 		145: ['Dikloretan (DCE)', 'http://sv.wikipedia.org/wiki/1,2-Dikloretan'],
@@ -151,7 +259,9 @@ FT.translateSubstances = function(polluter) {
 		746: ['Organiska tennföreningar (Sn-org)', ''],
 		747: ['Svaveldioxid (SO2)', 'http://sv.wikipedia.org/wiki/Svaveldioxid'],
 		754: ['Svaveloxider (SOx)', ''], 
-		773: ['Stoft', ''], 
+		773: ['Stoft', ''],
+		800: ['Triklorbensener (TCB)', ''],
+		806: ['Tetraklormetan (TCM)', 'http://sv.wikipedia.org/wiki/Koltetraklorid'], 
 		814: ['Trifenyltenn (TFTO)', ''], 
 		826: ['Totalt organiskt kol (TOC)', 'http://sv.wikipedia.org/wiki/TOC'],
 		827: ['Toluen', 'http://sv.wikipedia.org/wiki/Toluen'],
@@ -167,6 +277,7 @@ FT.translateSubstances = function(polluter) {
 		999: [' Koldioxid från fossila bränslen', 'http://sv.wikipedia.org/wiki/Koldioxid'] };
 
 	var english = polluter.ParameterId;
+
 	if (swedish[english][1] === ""){
 		return swedish[english][0];
 	}
@@ -310,8 +421,6 @@ FT.CreateMarkers = function (pollutions) {
 	 	 	html: content,
 	 	 	icon: "marker.png"
 	 	});
-
-	 	//allMarkers.push(marker);	//array som anv för att kunna öppna medd. från listan
 			
 		google.maps.event.addListener(marker, 'click', function() {
        		infowindow.setContent(this.html);
