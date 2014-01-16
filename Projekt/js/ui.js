@@ -19,12 +19,12 @@ FT.sortProducers = function(json){
 	    else
 	        sorted[key] = [json[i]];
 	}
-	//console.log(sorted);
+
 	return (sorted);
 }
 
 
-FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare?????
+FT.userMapChoice = function (){	
 	//väljer kommun
 	$("#districts").change(function() {
 		var state = $("#states option:selected" ).text();
@@ -51,7 +51,8 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					}
 				}
 				
-				FT.CreateMarkers(districts);
+				var sorted = FT.sortProducers(districts);
+				FT.CreateMarkers(sorted);
 			}			
 		});
 	});
@@ -70,8 +71,8 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
 			}
 			else {
-
-				FT.CreateMarkers(json);
+				var sorted = FT.sortProducers(json);
+				FT.CreateMarkers(sorted);
 			}
 		});
 	});
@@ -87,7 +88,8 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
 			}
 			else {
-				FT.CreateMarkers(json);
+				var sorted = FT.sortProducers(json);
+				FT.CreateMarkers(sorted);
 			}
 		});
 	});
@@ -102,7 +104,8 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
 			}
 			else {
-				FT.CreateMarkers(json);
+				var sorted = FT.sortProducers(json);
+				FT.CreateMarkers(sorted);
 			}
 			
 		});
@@ -118,7 +121,8 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
 			}
 			else{
-				FT.CreateMarkers(json);
+				var sorted = FT.sortProducers(json);
+				FT.CreateMarkers(sorted);
 			}			
 		});
 	});
@@ -135,7 +139,8 @@ FT.userMapChoice = function (){				//obs flera ämen från samma utsläppare????
 					"källor för data. Prova gärna något annat alternativ eller återkom senare</strong>");
 			}
 			else{
-				FT.CreateMarkers(json);
+				var sorted = FT.sortProducers(json);
+				FT.CreateMarkers(sorted);
 			}
 		});
 	});

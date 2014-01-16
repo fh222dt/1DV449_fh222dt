@@ -174,13 +174,24 @@ FT.getComment = function(polluter){
 }
 
 FT.getAllSubstances = function(pollutions){
+	var result = "";
 	for (var i = 0; i < pollutions.length; i++) {
-		if(pollutions.MiljorapportId) {
-			
+		
+		var text = '<p> Utsläpp: ' + FT.translateSubstances(pollutions[i]) + '</p>' +
+		'<p> Mängd: ' +FT.getAmount(pollutions[i]) + '</p>' +
+		'<p> Släpps ut till: ' +FT.getReceiver(pollutions[i])  + '</p>' +
+		'<p> Kommentar: ' +FT.getComment(pollutions[i])  + '</p>' +
+		'<p>_______</p>';
+
+		if(result !="") {
+			result = result + text;
+		}
+		else {
+			result = text;
 		}
 	}
 
-	
+	return result;
 }
 
 FT.translateSubstances = function(polluter) {
@@ -374,36 +385,43 @@ FT.CreateMarkers = function (pollutions) {
 			        };
 			 	 
  	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+ 	var keys = Object.keys(pollutions);
 
-	for (var i = 0; i < pollutions.length; i++) {	 	
+ 	console.log(pollutions);
+ 	
 
-	 	var content = '<div id=' + 'infowindow' + '>' +
-	 				'<h2>'+pollutions[i].Anlaggningsnamn+'</h2>' +
-	 	 			'<p> Adress: '+pollutions[i].Besoksadress+', '+pollutions[i].Anlaggningsort+'</p>' +
-	 	 			'<p> Släpper ut: ' + FT.translateSubstances(pollutions[i]) + '</p>' +
-	 	 			'<p> Mängd: ' +FT.getAmount(pollutions[i]) + '</p>' +
-	 	 			'<p> Släpps ut till: ' +FT.getReceiver(pollutions[i])  + '</p>' +
-	 	 			'<p> Kommentar: ' +FT.getComment(pollutions[i])  + '</p>' +
-	 	 			'</div>';
+ 	for (var j = 0; j < keys.length; j++) {
+ 		
+		for (var i = 0; i < pollutions[keys[j]].length; i++) {	 	
+			var first = pollutions[keys[j]];
 
-		var info = new google.maps.InfoWindow({
-	 		content: content
-		});
+		 	var content = '<div id=' + 'infowindow' + '>' +
+		 				'<h2>'+first[0].Anlaggningsnamn+'</h2>' +
+		 	 			'<p> Adress: '+first[0].Besoksadress+', '+first[0].Anlaggningsort+'</p>' +
+		 	 			'<p>_______</p>'+
+		 	 			FT.getAllSubstances(pollutions[keys[j]]);
+		 	 			+
+		 	 			'</div>';
 
-		var pos = new google.maps.LatLng(FT.fixCoordinates(pollutions[i].WGS84Nord),FT.fixCoordinates(pollutions[i].WGS84Ost));			 	 
-
-	 	var marker = new google.maps.Marker({
-	 	 	position: pos,
-	 	 	map: map,
-	 	 	title: pollutions[i].Anlaggningsnamn,
-	 	 	html: content,
-	 	 	icon: "marker.png"
-	 	});
-			
-		google.maps.event.addListener(marker, 'click', function() {
-       		infowindow.setContent(this.html);
-       		infowindow.open(map,this);
+			var info = new google.maps.InfoWindow({
+		 		content: content
 			});
+
+			var pos = new google.maps.LatLng(FT.fixCoordinates(first[0].WGS84Nord),FT.fixCoordinates(first[0].WGS84Ost));			 	 
+
+		 	var marker = new google.maps.Marker({
+		 	 	position: pos,
+		 	 	map: map,
+		 	 	title: first[0].Anlaggningsnamn,
+		 	 	html: content,
+		 	 	icon: "marker.png"
+		 	});
+				
+			google.maps.event.addListener(marker, 'click', function() {
+	       		infowindow.setContent(this.html);
+	       		infowindow.open(map,this);
+				});
+		}
 	}
 }
 
