@@ -23,10 +23,36 @@ FT.sortProducers = function(json){
 	return (sorted);
 }
 
+FT.resetSelection = function(clicked){
+	if (clicked ==='states') {
+		$('#districts option[selected]').prop('selected', true);
+		$('#usage option[selected]').prop('selected', true);
+	}
 
-FT.userMapChoice = function (){	
+	else if (clicked ==='districts') {
+		$('#usage option[selected]').prop('selected', true);
+	}
+
+	else if (clicked ==='usage'){
+		$( ".uniqueDistricts" ).remove();
+		$("#removeme").show();
+		$('#states option[selected]').prop('selected', true);
+		$('#districts option[selected]').prop('selected', true);
+	}
+	else {
+		$( ".uniqueDistricts" ).remove();
+		$("#removeme").show();	
+		$('#states option[selected]').prop('selected', true);
+		$('#districts option[selected]').prop('selected', true);
+		$('#usage option[selected]').prop('selected', true);
+	}
+}
+
+
+FT.userMapChoice = function (){
 	//väljer kommun
 	$("#districts").change(function() {
+		FT.resetSelection('districts');
 		var state = $("#states option:selected" ).text();
 		var fixedState = FT.getName(state);
 		$.ajax({
@@ -57,13 +83,12 @@ FT.userMapChoice = function (){
 		});
 	});
 
-	//väljer län 					fixa!!!!!!
+	//väljer län
 	$('#states').change(function() {
-		console.log($('#states select').index());
-		if ($(this).index() != 0) {
+		FT.resetSelection('states');		
 		var state = $("#states option:selected" ).text();
 		var fixedState = FT.getName(state);
-		$("#removeme").remove();
+		$("#removeme").hide();
 		$.ajax({
 			dataType: "json",
 			url: "cache/"+fixedState+".json"
@@ -77,11 +102,11 @@ FT.userMapChoice = function (){
 				FT.CreateMarkers(sorted);
 			}
 		});
-	}
 	});
 
 	//alla luft
 	$("#air").click(function() {
+		FT.resetSelection('def');
 		$.ajax({
 			dataType: "json",
 			url: "cache/luft.json"
@@ -98,6 +123,7 @@ FT.userMapChoice = function (){
 	});
 	//alla vatten
 	$("#water").click(function() {
+		FT.resetSelection('def');
 		$.ajax({
 			dataType: "json",
 			url: "cache/vatten.json"
@@ -115,6 +141,7 @@ FT.userMapChoice = function (){
 	});
 	//alla reningsverk
 	$("#sewage").click(function() {
+		FT.resetSelection('def');
 		$.ajax({
 			dataType: "json",
 			url: "cache/reningsverk.json"
@@ -131,6 +158,7 @@ FT.userMapChoice = function (){
 	});
 	//väljer anv.omr.
 	$("#usage").change(function() {
+		FT.resetSelection('usage');
 		var usage = $("#usage option:selected").val();
 		//console.log(usage);
 		$.ajax({

@@ -30,15 +30,15 @@ $emissions->getCategories();
       </header>
       <aside>
         <h2>Välj vad du vill se på kartan</h2>
-        <select id="states" class="form-control input-sm"><option>Alla utsläpp i ett län</option></select>
-        <select id="districts" class="form-control input-sm"><option>Alla utsläpp i en kommun</option>
-          <option id="removeme">-Välj först län</option></select>
+        <select id="states" class="form-control input-sm"><option selected="selected" disabled>Alla utsläpp i ett län</option></select>
+        <select id="districts" class="form-control input-sm"><option selected="selected" disabled>Alla utsläpp i en kommun</option>
+          <option disabled id="removeme">-Välj först län</option></select>
         
         <button id="air" type="button" class="btn btn-default btn-sm btn-block">Alla utsläpp till luft</button>
         <button id="water" type="button" class="btn btn-default btn-sm btn-block">Alla utsläpp till vatten</button>
         <button id="sewage" type="button" class="btn btn-default btn-sm btn-block">Alla utsläpp till reningsverk</button>
         
-        <select id="usage" class="form-control input-sm"><option>Utsläpp per användningsområde</option></select>
+        <select id="usage" class="form-control input-sm"><option selected="selected" disabled>Utsläpp per användningsområde</option></select>
       </aside>
       <div id="start" class="animated flipInY"><p>Välj i menyn vad du vill se för utsläpp</p></div>
       <div id="map-canvas"></div>

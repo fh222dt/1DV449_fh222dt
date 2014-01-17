@@ -61,7 +61,7 @@ footer {
 
 #map-canvas { 
 	height: 550px;
-	width: 750px;
+	width: 850px;
 	float: left;
 	margin-bottom: 10px;
 }
@@ -78,7 +78,7 @@ footer {
 	height: 50px;
 	background: #D3CBB8;
 	border: 1px solid #C5BDAC;
-	margin-left: 500px;
+	margin-left: 650px;
 	margin-top: 150px;
 	z-index: 99;
 	padding: 4px 10px 0px 10px;
