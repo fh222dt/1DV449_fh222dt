@@ -57,8 +57,10 @@ FT.userMapChoice = function (){
 		});
 	});
 
-	//väljer län
-	$("#states").change(function() {
+	//väljer län 					fixa!!!!!!
+	$('#states').change(function() {
+		console.log($('#states select').index());
+		if ($(this).index() != 0) {
 		var state = $("#states option:selected" ).text();
 		var fixedState = FT.getName(state);
 		$("#removeme").remove();
@@ -75,6 +77,7 @@ FT.userMapChoice = function (){
 				FT.CreateMarkers(sorted);
 			}
 		});
+	}
 	});
 
 	//alla luft

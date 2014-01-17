@@ -177,11 +177,11 @@ FT.getAllSubstances = function(pollutions){
 	var result = "";
 	for (var i = 0; i < pollutions.length; i++) {
 		
-		var text = '<p> Utsläpp: ' + FT.translateSubstances(pollutions[i]) + '</p>' +
-		'<p> Mängd: ' +FT.getAmount(pollutions[i]) + '</p>' +
-		'<p> Släpps ut till: ' +FT.getReceiver(pollutions[i])  + '</p>' +
-		'<p> Kommentar: ' +FT.getComment(pollutions[i])  + '</p>' +
-		'<p>_______</p>';
+		var text = '<p><strong> Utsläpp: </strong>' + FT.translateSubstances(pollutions[i]) + '</p>' +
+		'<p><strong> Mängd: </strong>' +FT.getAmount(pollutions[i]) + '</p>' +
+		'<p><strong> Släpps ut till: </strong>' +FT.getReceiver(pollutions[i])  + '</p>' +
+		'<p><strong> Kommentar: </strong>' +FT.getComment(pollutions[i])  + '</p>' +
+		'<div class="divider">_______</div>';
 
 		if(result !="") {
 			result = result + text;
@@ -387,18 +387,15 @@ FT.CreateMarkers = function (pollutions) {
  	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
  	var keys = Object.keys(pollutions);
 
- 	console.log(pollutions);
- 	
-
  	for (var j = 0; j < keys.length; j++) {
  		
 		for (var i = 0; i < pollutions[keys[j]].length; i++) {	 	
 			var first = pollutions[keys[j]];
 
 		 	var content = '<div id=' + 'infowindow' + '>' +
-		 				'<h2>'+first[0].Anlaggningsnamn+'</h2>' +
-		 	 			'<p> Adress: '+first[0].Besoksadress+', '+first[0].Anlaggningsort+'</p>' +
-		 	 			'<p>_______</p>'+
+		 				'<h3>'+first[0].Anlaggningsnamn+'</h3>' +
+		 	 			'<p><strong>Adress: </strong>'+first[0].Besoksadress+', '+first[0].Anlaggningsort+'</p>' +
+		 	 			
 		 	 			FT.getAllSubstances(pollutions[keys[j]]);
 		 	 			+
 		 	 			'</div>';
